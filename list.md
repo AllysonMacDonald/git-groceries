@@ -11,6 +11,9 @@ The shared page auto-refreshes within a minute or two.
 ### Meat, poultry & seafood
 
 ### Dairy & eggs
+- [ ] milk
+- [ ] eggs
+- [ ] old cheddar cheese
 
 ### Bakery
 
