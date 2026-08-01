@@ -21,6 +21,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] fresh parsley — chowder
 
 ### Meat, poultry & seafood
+- [ ] pork chops
 - [ ] white fish (cod or haddock) — chowder
 - [ ] shrimp — chowder
 - [ ] scallops — chowder
