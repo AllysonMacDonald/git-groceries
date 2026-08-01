@@ -78,3 +78,40 @@ crackers or bread you've got on hand.
 **Notes:** Better the next day. Keeps 4–5 days in the fridge. Traditional
 version uses canned yellow (wax) beans in place of chickpeas — swap if you
 prefer. Drain well before serving so it isn't watery.
+
+---
+
+## Greek Pasta Salad (Feta & Olives)
+*Loaded Mediterranean picnic salad. Serves 6–8. ~20 min + chill. Boil pasta only.*
+
+### Ingredients
+- [ ] short pasta (rotini or fusilli), ~1 lb
+- [ ] feta cheese, ~1 cup crumbled (~8 oz block)
+- [ ] kalamata olives, ~1 cup, pitted
+- [ ] cucumber, 1
+- [ ] cherry tomatoes, 1 pint
+- [ ] red onion, ½
+- [ ] red bell pepper, 1
+- [ ] garlic, 1–2 cloves
+
+**Dressing (lemon-oregano vinaigrette):**
+- [ ] olive oil, ⅓ cup
+- [ ] red wine vinegar, 3 tbsp
+- [ ] dried oregano, 1 tbsp
+- [ ] salt & black pepper, to taste
+
+### Method
+1. **Pasta:** Boil in well-salted water until al dente. Drain, rinse under cold
+   water to cool and stop the cooking, and drain well.
+2. **Dressing:** Whisk olive oil, red wine vinegar, minced garlic, oregano,
+   salt, and pepper. Taste and adjust.
+3. **Chop:** Halve the cherry tomatoes, dice the cucumber and red pepper, thinly
+   slice the red onion.
+4. **Combine:** In a big bowl, toss the cooled pasta with the vegetables and
+   olives. Pour the dressing over and toss to coat. Fold in the crumbled feta
+   last so it doesn't break up completely.
+5. **Chill:** Cover and refrigerate at least 1 hour so the flavours meld. Toss
+   again before serving.
+
+**Notes:** Keeps 3–4 days in the fridge. Add the feta and a splash more oil
+before serving if it's been sitting — the pasta drinks up the dressing.

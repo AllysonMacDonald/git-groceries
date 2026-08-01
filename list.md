@@ -7,6 +7,11 @@ The shared page auto-refreshes within a minute or two.
 ## To buy
 
 ### Fruit & vegetables
+- [ ] cucumber — Greek pasta salad
+- [ ] cherry tomatoes — Greek pasta salad
+- [ ] red onion — Greek pasta salad
+- [ ] red bell pepper — Greek pasta salad
+- [ ] garlic — Greek pasta salad
 
 ### Meat, poultry & seafood
 
@@ -14,10 +19,16 @@ The shared page auto-refreshes within a minute or two.
 - [ ] milk
 - [ ] eggs
 - [ ] old cheddar cheese
+- [ ] feta cheese — Greek pasta salad
 
 ### Bakery
 
 ### Pantry staples
+- [ ] short pasta (rotini or fusilli) — Greek pasta salad
+- [ ] kalamata olives — Greek pasta salad
+- [ ] olive oil — Greek pasta salad
+- [ ] red wine vinegar — Greek pasta salad
+- [ ] dried oregano — Greek pasta salad
 
 ### Frozen foods
 
