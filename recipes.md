@@ -2,7 +2,7 @@
 
 Each recipe lists its **ingredients** (for the grocery list) and its **method**
 (for cooking day). Tell Claude "add Seafood Chowder to groceries" and the
-ingredient list drops onto `## To buy` in `grocery-list.md` — deduped against
+ingredient list drops onto `## To buy` in `list.md` — deduped against
 what's already there and what's in the pantry.
 
 Format per recipe: a `##` heading, an ingredients checklist, then steps.
