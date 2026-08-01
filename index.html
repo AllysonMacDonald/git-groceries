@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Groceries</title>
+<style>
+  :root {
+    --bg: #f6f6f4;
+    --card: #ffffff;
+    --text: #1c1c1a;
+    --muted: #7a7a72;
+    --line: #e6e6e0;
+    --accent: #3a7d44;
+    --accent-soft: #eaf3ec;
+    --done: #b7b7ae;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16171a;
+      --card: #1e2024;
+      --text: #ecece8;
+      --muted: #9a9a92;
+      --line: #2c2e33;
+      --accent: #6dbf78;
+      --accent-soft: #21302400;
+      --done: #5a5c55;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: max(16px, env(safe-area-inset-top)) 16px calc(48px + env(safe-area-inset-bottom));
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; margin: 8px 2px 20px;
+  }
+  h1 { font-size: 26px; font-weight: 700; letter-spacing: -.02em; margin: 0; }
+  .status {
+    font-size: 13px; color: var(--muted); display: flex; align-items: center;
+    gap: 6px; white-space: nowrap;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent); animation: pulse 2.4s infinite;
+  }
+  .dot.stale { background: #c9a227; animation: none; }
+  .dot.err { background: #c0392b; animation: none; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(109,191,120,.5); }
+    70% { box-shadow: 0 0 0 7px rgba(109,191,120,0); }
+    100% { box-shadow: 0 0 0 0 rgba(109,191,120,0); }
+  }
+  .summary { margin: 0 2px 18px; font-size: 14px; color: var(--muted); }
+  .cat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 6px 16px 10px; margin-bottom: 14px;
+  }
+  .cat h2 {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .07em; color: var(--muted); margin: 12px 0 6px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cat h2 .n { font-weight: 600; opacity: .7; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li {
+    display: flex; align-items: flex-start; gap: 11px; padding: 9px 2px;
+    border-top: 1px solid var(--line); font-size: 17px;
+  }
+  li:first-child { border-top: none; }
+  .box {
+    flex: 0 0 auto; width: 20px; height: 20px; border-radius: 6px;
+    border: 2px solid var(--line); margin-top: 1px;
+  }
+  li.done .box {
+    background: var(--accent); border-color: var(--accent);
+    position: relative;
+  }
+  li.done .box::after {
+    content: ""; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px;
+    border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .item { flex: 1; }
+  li.done .name { color: var(--done); text-decoration: line-through; }
+  .note { color: var(--muted); font-size: 14px; }
+  .empty {
+    text-align: center; color: var(--muted); padding: 60px 20px;
+    background: var(--card); border: 1px dashed var(--line); border-radius: 14px;
+  }
+  .empty .big { font-size: 40px; margin-bottom: 10px; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 22px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Groceries</h1>
+    <div class="status"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
+  </header>
+  <p class="summary" id="summary"></p>
+  <main id="list"></main>
+  <footer>Live view of <code>list.md</code> · updates automatically</footer>
+
+<script>
+(function () {
+  var SOURCE = "list.md";
+  var POLL_MS = 20000;
+  var listEl = document.getElementById("list");
+  var statusEl = document.getElementById("status");
+  var summaryEl = document.getElementById("summary");
+  var dotEl = document.getElementById("dot");
+  var lastText = null;
+  var lastOk = 0;
+
+  function esc(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // Parse the "## To buy" section into [{cat, items:[{name, note, done}]}]
+  function parse(md) {
+    var lines = md.split(/\r?\n/);
+    var inBuy = false, cats = [], cur = null;
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var h2 = line.match(/^##\s+(.*\S)\s*$/);
+      if (h2) {
+        inBuy = /^to buy$/i.test(h2[1].trim());
+        cur = null;
+        continue;
+      }
+      if (!inBuy) continue;
+      var h3 = line.match(/^###\s+(.*\S)\s*$/);
+      if (h3) { cur = { cat: h3[1].trim(), items: [] }; cats.push(cur); continue; }
+      var item = line.match(/^\s*[-*]\s+\[( |x|X)\]\s+(.*\S)\s*$/);
+      if (item) {
+        if (!cur) { cur = { cat: "Items", items: [] }; cats.push(cur); }
+        var done = item[1].toLowerCase() === "x";
+        var text = item[2].trim();
+        var note = "", split = text.split(/\s+[—–-]\s+/);
+        if (split.length > 1) { note = split.slice(1).join(" — "); text = split[0]; }
+        cur.items.push({ name: text, note: note, done: done });
+      }
+    }
+    return cats.filter(function (c) { return c.items.length > 0; });
+  }
+
+  function render(cats) {
+    if (!cats.length) {
+      listEl.innerHTML =
+        '<div class="empty"><div class="big">🛒</div>Nothing on the list yet.<br>' +
+        'Ask Claude to add something.</div>';
+      summaryEl.textContent = "";
+      return;
+    }
+    var total = 0, left = 0, html = "";
+    cats.forEach(function (c) {
+      var remaining = c.items.filter(function (it) { return !it.done; }).length;
+      total += c.items.length; left += remaining;
+      html += '<section class="cat"><h2>' + esc(c.cat) +
+        '<span class="n">' + remaining + "</span></h2><ul>";
+      c.items.forEach(function (it) {
+        html += '<li class="' + (it.done ? "done" : "") + '"><span class="box"></span>' +
+          '<span class="item"><span class="name">' + esc(it.name) + "</span>" +
+          (it.note ? ' <span class="note">— ' + esc(it.note) + "</span>" : "") +
+          "</span></li>";
+      });
+      html += "</ul></section>";
+    });
+    listEl.innerHTML = html;
+    summaryEl.textContent = left + " to buy" + (total - left > 0 ? " · " + (total - left) + " done" : "");
+  }
+
+  function timeAgo(ms) {
+    var s = Math.round((Date.now() - ms) / 1000);
+    if (s < 10) return "just now";
+    if (s < 60) return s + "s ago";
+    var m = Math.round(s / 60);
+    if (m < 60) return m + "m ago";
+    return Math.round(m / 60) + "h ago";
+  }
+
+  function setStatus() {
+    if (!lastOk) return;
+    var age = Date.now() - lastOk;
+    dotEl.className = "dot" + (age > POLL_MS * 3 ? " stale" : "");
+    statusEl.textContent = "Updated " + timeAgo(lastOk);
+  }
+
+  function load() {
+    fetch(SOURCE + "?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      })
+      .then(function (text) {
+        lastOk = Date.now();
+        if (text !== lastText) { lastText = text; render(parse(text)); }
+        setStatus();
+      })
+      .catch(function () {
+        dotEl.className = "dot err";
+        statusEl.textContent = lastOk ? "Offline · updated " + timeAgo(lastOk) : "Can't load list";
+        if (!lastOk) {
+          listEl.innerHTML =
+            '<div class="empty"><div class="big">⏳</div>Waiting for <code>list.md</code>.<br>' +
+            "If this is a brand-new repo, give GitHub Pages a minute to publish.</div>";
+        }
+      });
+  }
+
+  load();
+  setInterval(load, POLL_MS);
+  setInterval(setStatus, 5000);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) load(); });
+  window.addEventListener("focus", load);
+})();
+</script>
+</body>
+</html>
