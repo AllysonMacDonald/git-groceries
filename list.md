@@ -11,15 +11,28 @@ The shared page auto-refreshes within a minute or two.
 - [ ] cherry tomatoes — Greek pasta salad
 - [ ] red onion — Greek pasta salad
 - [ ] red bell pepper — Greek pasta salad
-- [ ] garlic — Greek pasta salad
+- [ ] garlic — Greek pasta salad, chowder
+- [ ] potatoes — chowder
+- [ ] onion — chowder
+- [ ] celery — chowder
+- [ ] carrot — chowder
+- [ ] corn — chowder (optional)
+- [ ] fresh thyme — chowder
+- [ ] fresh parsley — chowder
 
 ### Meat, poultry & seafood
+- [ ] white fish (cod or haddock) — chowder
+- [ ] shrimp — chowder
+- [ ] scallops — chowder
+- [ ] bacon — chowder
 
 ### Dairy & eggs
-- [ ] milk
+- [ ] milk — chowder
 - [ ] eggs
 - [ ] old cheddar cheese
 - [ ] feta cheese — Greek pasta salad
+- [ ] butter — chowder
+- [ ] heavy cream — chowder
 
 ### Bakery
 
@@ -29,6 +42,9 @@ The shared page auto-refreshes within a minute or two.
 - [ ] olive oil — Greek pasta salad
 - [ ] red wine vinegar — Greek pasta salad
 - [ ] dried oregano — Greek pasta salad
+- [ ] flour — chowder
+- [ ] bay leaf — chowder
+- [ ] yellow mustard
 
 ### Frozen foods
 
