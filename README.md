@@ -12,9 +12,11 @@ serverless function so a partner can **add items straight from their phone**.
 - **Tell Claude** — from any device: **"add milk and eggs to the list."** Claude
   files each item into the right category, commits, and pushes to `main`.
 - **The "Add item" box on the page** — a partner types an item and taps **Add**.
-  It lands under `## Inbox` in `list.md` (uncategorized) via the Netlify function
-  `netlify/functions/add-item.js`. No account, no login. Next time Claude touches
-  the list it re-files those Inbox items into the right categories and dedupes.
+  The Netlify function `netlify/functions/add-item.js` classifies it into the
+  right category (the 12 buckets below) and files it under that heading in
+  `## To buy`, deduping against the whole list. No account, no login. Items the
+  classifier can't place confidently land under `## Inbox` instead, and Claude
+  files those by judgment on its next interaction.
 
 Either way, the shared page picks up the change on its next poll (~20s) once the
 updated file is published.

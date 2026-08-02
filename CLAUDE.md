@@ -23,8 +23,9 @@ Do this, no confirmation needed:
 ## The `## Inbox` (items added from a phone)
 
 The live page has an "Add item" box. When a partner adds something from their
-phone, it lands as a `- [ ] item` line under `## Inbox` in `list.md`
-(uncategorized) via a Netlify function — no Claude in the loop at that moment.
+phone, the Netlify function classifies it and files it under the right category
+in `## To buy` (deduped) — no Claude in the loop at that moment. Only items the
+classifier can't place confidently land under `## Inbox` (uncategorized).
 
 **At the start of any interaction with this repo, and whenever you touch
 `list.md`:** if `## Inbox` has any items, re-file each one into the right
