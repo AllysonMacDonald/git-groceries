@@ -127,3 +127,191 @@ prefer. Drain well before serving so it isn't watery.
 
 **Notes:** Keeps 3–4 days in the fridge. Add the feta and a splash more oil
 before serving if it's been sitting — the pasta drinks up the dressing.
+
+---
+
+## Mediterranean Chickpea & Feta Skillet
+*Weeknight vegetarian one-pan. Serves 4. ~25 min. Mild.*
+<!-- tags: chickpea skillet -->
+
+### Ingredients
+- [ ] olive oil, 2 tbsp
+- [ ] onion, 1
+- [ ] garlic, 3 cloves
+- [ ] cherry tomatoes, 1 pint (or 1 can diced tomatoes, ~14 oz)
+- [ ] chickpeas, 2 cans (~14 oz each)
+- [ ] baby spinach, ~5 oz (a few big handfuls)
+- [ ] dried oregano, 1 tsp
+- [ ] sweet paprika, ½ tsp
+- [ ] feta cheese, ~1 cup crumbled
+- [ ] lemon, 1
+- [ ] crusty bread or pita, to serve
+- [ ] salt & pepper
+
+### Method
+1. **Soften:** Warm the olive oil in a big skillet. Cook diced onion ~5 min until
+   soft; add minced garlic, oregano, and paprika, 1 min.
+2. **Tomatoes:** Add the cherry tomatoes (or canned), cook ~5 min, pressing to
+   burst them into a quick sauce. Season.
+3. **Chickpeas:** Stir in the drained, rinsed chickpeas; warm through 3–4 min.
+4. **Greens:** Fold in the spinach a handful at a time until wilted. Off the
+   heat, squeeze over the lemon.
+5. **Finish:** Scatter the feta on top. Serve with bread or pita to mop up.
+
+**Notes:** Lacto-ovo vegetarian. Add a can of drained artichokes or some olives
+for more Mediterranean flavour. A fried egg on top makes it heartier.
+
+---
+
+## Egg & Vegetable Fried Rice
+*Quick vegetarian fridge-clear-out. Serves 4. ~20 min. Mild.*
+<!-- tags: veggie fried rice -->
+
+### Ingredients
+- [ ] cooked rice, 4 cups (day-old works best)
+- [ ] eggs, 3
+- [ ] carrot, 2
+- [ ] frozen peas, 1 cup
+- [ ] green onions, 4
+- [ ] garlic, 2 cloves
+- [ ] soy sauce, 3 tbsp (low-sodium)
+- [ ] sesame oil, 1 tsp
+- [ ] vegetable oil, 2 tbsp
+- [ ] salt & pepper
+
+### Method
+1. **Eggs:** Scramble the eggs in a little oil in a large pan or wok; scoop out
+   and set aside.
+2. **Veg:** Add the rest of the oil; stir-fry diced carrot ~3 min, then garlic
+   and peas 1 min.
+3. **Rice:** Add the rice, break up any clumps, and fry 3–4 min so it heats
+   through and picks up a little colour.
+4. **Season & finish:** Add soy sauce and sesame oil, toss to coat. Stir the
+   eggs back in with the sliced green onions. Taste and adjust.
+
+**Notes:** Lacto-ovo vegetarian. Any leftover veg works — corn, edamame, diced
+pepper. Not spicy; put chili crisp on the table for the adults if you like.
+
+---
+
+## Sheet-Pan Lemon-Herb Chicken & Vegetables
+*Hands-off meat-and-veg dinner. Serves 4. ~35 min (mostly in the oven). Mild.*
+<!-- tags: sheet-pan chicken -->
+
+### Ingredients
+- [ ] chicken thighs (bone-in or boneless), ~2 lb
+- [ ] baby potatoes, ~1.5 lb
+- [ ] carrots, 4
+- [ ] red bell pepper, 2
+- [ ] red onion, 1
+- [ ] olive oil, 3 tbsp
+- [ ] garlic, 4 cloves
+- [ ] dried oregano, 1 tbsp
+- [ ] lemon, 2
+- [ ] salt & pepper
+
+### Method
+1. **Head start:** Heat oven to 425°F. Toss halved baby potatoes and chunked
+   carrots with 1 tbsp oil, salt, and pepper on a sheet pan; roast 10 min.
+2. **Season chicken:** Toss the chicken, pepper chunks, and onion wedges with the
+   rest of the oil, minced garlic, oregano, the zest and juice of 1 lemon, salt,
+   and pepper.
+3. **Roast:** Add everything to the pan in one layer. Roast 25–30 min until the
+   chicken reaches 165°F and the veg are tender and browned at the edges.
+4. **Finish:** Squeeze the second lemon over the top before serving.
+
+**Notes:** Boneless thighs cook faster (~20 min) — check early. Swap the veg for
+whatever you have (zucchini, green beans). Great with a dollop of tzatziki.
+
+---
+
+## Mild Beef & Broccoli Stir-Fry
+*Fast meat-and-veg over rice. Serves 4. ~25 min. Mild.*
+<!-- tags: beef and broccoli -->
+
+### Ingredients
+- [ ] flank or sirloin steak, ~1 lb
+- [ ] broccoli, 1 large head (or 2 crowns)
+- [ ] garlic, 3 cloves
+- [ ] fresh ginger, 1 tbsp grated
+- [ ] soy sauce, ¼ cup (low-sodium)
+- [ ] brown sugar, 1 tbsp
+- [ ] cornstarch, 1 tbsp
+- [ ] beef broth (or water), ⅓ cup
+- [ ] vegetable oil, 2 tbsp
+- [ ] rice, to serve
+
+### Method
+1. **Prep:** Thinly slice the beef against the grain; toss with 1 tbsp of the soy
+   sauce and 1 tsp of the cornstarch. Stir the sauce: remaining soy, brown sugar,
+   remaining cornstarch, and broth.
+2. **Sear beef:** In a hot pan with 1 tbsp oil, sear the beef 2–3 min until just
+   browned; remove.
+3. **Broccoli:** Add the rest of the oil and the broccoli florets with a splash
+   of water; cover and steam-fry 3–4 min until bright and crisp-tender.
+4. **Combine:** Add garlic and ginger, 30 sec. Return the beef, pour in the
+   sauce, and simmer 1–2 min until glossy and thickened. Serve over rice.
+
+**Notes:** Mild by design — no chili. Offer a pinch of red pepper flakes at the
+table for the adults. Freeze the beef 15 min first to slice it thinly.
+
+---
+
+## Kid-Made Mediterranean Pita Pockets
+*No-cook assembly dinner an 8-year-old can build. Serves 4. ~15 min. Mild.*
+<!-- tags: pita pockets -->
+
+### Ingredients
+- [ ] pita bread (pocket style), 4–6
+- [ ] hummus, 1 tub (~2 cups)
+- [ ] cucumber, 1
+- [ ] cherry tomatoes, 1 pint
+- [ ] baby spinach or lettuce, a few handfuls
+- [ ] feta cheese, ~1 cup crumbled
+- [ ] shredded carrot, 1 cup
+- [ ] olives (optional), ½ cup
+- [ ] olive oil or lemon, to drizzle
+
+### Method
+*An 8-year-old can make this — no stove, no sharp knives for the kid. An adult
+does any cutting first.*
+1. **Adult prep:** Halve the pitas to open the pockets; cut the cucumber and
+   cherry tomatoes; set out all the fillings in bowls.
+2. **Kid — spread:** Spread hummus inside each pita pocket.
+3. **Kid — fill:** Load in spinach, cucumber, tomatoes, shredded carrot, and
+   feta (and olives if you like them).
+4. **Kid — finish:** Drizzle with a little olive oil or a squeeze of lemon. Done!
+
+**Notes:** Lacto-ovo vegetarian. Swap in any crunchy veg you have. Add sliced
+cooked chicken for a heartier adult version.
+
+---
+
+## 12-Year-Old's Cheesy Black Bean Quesadillas
+*Simple stovetop dinner a 12-year-old can cook. Serves 4. ~20 min. Mild.*
+<!-- tags: quesadillas -->
+
+### Ingredients
+- [ ] flour tortillas (large), 8
+- [ ] cheddar or Monterey Jack cheese, ~2½ cups shredded
+- [ ] black beans, 1 can (~14 oz)
+- [ ] corn, 1 cup (canned or frozen)
+- [ ] green onions, 3
+- [ ] ground cumin, 1 tsp
+- [ ] vegetable oil or butter, for the pan
+- [ ] salsa (mild) & sour cream, to serve
+
+### Method
+*A 12-year-old can cook this on the stovetop with light supervision.*
+1. **Filling:** Drain and rinse the beans; mash lightly with the cumin. Stir in
+   the corn and sliced green onions.
+2. **Build:** Set a tortilla in a lightly oiled pan over medium heat. Sprinkle on
+   cheese, spread some bean mix, add a little more cheese, and top with a second
+   tortilla.
+3. **Cook:** Cook 2–3 min until golden underneath, then flip carefully and cook
+   2 min more until crisp and the cheese has melted.
+4. **Serve:** Slide onto a board, cut into wedges, and repeat. Serve with mild
+   salsa and sour cream.
+
+**Notes:** Lacto-ovo vegetarian. Add cooked chicken or leftover beef to some for
+a heartier version. Keep the salsa mild for the kids.

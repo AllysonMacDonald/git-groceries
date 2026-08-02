@@ -9,9 +9,10 @@ categories live in `README.md` — read that for how to file new items.
 - `list.md` — the live list. Source of truth.
 - `staples.md` — recurring items to keep stocked.
 - `recipes.md` — saved recipes; ingredients (for the list) + method (for cooking).
+- `preferences.md` — the family food profile the weekly planner reads.
 - `README.md` — capture protocol + the 12 categories.
-- `index.html` — the GitHub Pages page that renders `list.md`.
-- `how-it-works.md` — this file: ordering cadence, staples, recipes, Instacart watch.
+- `index.html` — the GitHub Pages page that renders `list.md` + this week's recipes.
+- `how-it-works.md` — this file: ordering cadence, staples, recipes, meal planning, Instacart watch.
 
 ## The shared page (GitHub Pages)
 
@@ -27,6 +28,33 @@ and its weekly re-share step, which are retired.)
 `## To buy`, each ingredient filed to its category, deduped against what's there.
 File each ingredient with the recipe's short tag as its ` — note` (e.g.
 `— chowder`) so the recipe shows up on the page automatically (see below).
+
+## Weekly meal planning (the weekly six)
+
+Every **Monday at 9:00 am** the planner picks **6 dinners** for the week and adds
+their ingredients to the grocery list — so nobody has to think up meals. It reads
+`preferences.md` (allergies, cuisines, dislikes, kid-cooking limits, family size)
+and follows these rules:
+
+- **The mix:** 2 vegetarian (lacto-ovo) · 2 simple meat-and-veg · 2 kid-friendly
+  (one no-heat for the 8-year-old, one stovetop/oven for the 12-year-old).
+- **Constraints:** ~30-min weeknight dinners, mild (kid palates); vary cuisines
+  and proteins across the six and week to week; avoid repeating a recipe from the
+  last ~3–4 weeks.
+- **Sourcing:** prefer recipes already in `recipes.md`; add one or two new ones
+  when the collection is thin or for variety. New recipes are written into
+  `recipes.md` in the standard format (with a `<!-- tags: … -->` line).
+- **To the list:** file every ingredient onto `## To buy`, each in the right
+  aisle, deduped against the whole list, tagged with its recipe (e.g.
+  `— sheet-pan chicken`). This is an **auto-add** — the six land on the list
+  without waiting for approval; Allyson can swap or remove any afterward.
+
+The six then show up on the page automatically (see below), since their
+ingredients are now on the list.
+
+Early on Claude sources the recipes fresh from `preferences.md`. As `recipes.md`
+fills up, the planner mostly rotates through that collection, adding the
+occasional new dish.
 
 ## Recipes on the page
 
