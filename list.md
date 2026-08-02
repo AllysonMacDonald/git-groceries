@@ -27,6 +27,7 @@ The shared page auto-refreshes within a minute or two.
 
 ### Household supplies
 - [ ] large clear garbage bags
+- [ ] recycling bags
 
 ### Personal care
 
@@ -36,7 +37,7 @@ The shared page auto-refreshes within a minute or two.
 
 <!-- Phone-added items the classifier couldn't place land here. Claude re-files
 them into a real category on the next interaction. -->
-- [ ] recycling bags
+
 
 ## Ordered / done
 
