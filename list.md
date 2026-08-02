@@ -10,6 +10,7 @@ The shared page auto-refreshes within a minute or two.
 Claude re-files each into the right category under "## To buy" (deduped) on the
 next interaction, then clears them from here. -->
 - [ ] chamomile tea
+- [ ] add romaine lettuce
 
 ## To buy
 
