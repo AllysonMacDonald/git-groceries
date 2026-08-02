@@ -60,7 +60,15 @@
     70% { box-shadow: 0 0 0 7px rgba(109,191,120,0); }
     100% { box-shadow: 0 0 0 0 rgba(109,191,120,0); }
   }
-  .summary { margin: 0 2px 18px; font-size: 14px; color: var(--muted); }
+  .summary {
+    margin: 0 2px 18px; font-size: 14px; color: var(--muted);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .clear {
+    font: inherit; font-size: 13px; color: var(--accent); background: none;
+    border: none; padding: 4px 2px; cursor: pointer; white-space: nowrap;
+  }
+  .clear[hidden] { display: none; }
   .cat {
     background: var(--card); border: 1px solid var(--line); border-radius: 14px;
     box-shadow: var(--shadow); padding: 6px 16px 10px; margin-bottom: 14px;
@@ -75,8 +83,11 @@
   li {
     display: flex; align-items: flex-start; gap: 11px; padding: 9px 2px;
     border-top: 1px solid var(--line); font-size: 17px;
+    cursor: pointer; user-select: none; -webkit-user-select: none;
+    transition: opacity .15s;
   }
   li:first-child { border-top: none; }
+  li:active { opacity: .55; }
   .box {
     flex: 0 0 auto; width: 20px; height: 20px; border-radius: 6px;
     border: 2px solid var(--line); margin-top: 1px;
@@ -106,7 +117,7 @@
     <h1>Groceries</h1>
     <div class="status"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
   </header>
-  <p class="summary" id="summary"></p>
+  <p class="summary"><span id="summary"></span><button class="clear" id="clear" hidden>Uncheck all</button></p>
   <main id="list"></main>
   <footer>Live view of <code>list.md</code> · updates automatically</footer>
 
@@ -114,12 +125,31 @@
 (function () {
   var SOURCE = "list.md";
   var POLL_MS = 20000;
+  var STORE = "gg.checked.v1";
   var listEl = document.getElementById("list");
   var statusEl = document.getElementById("status");
   var summaryEl = document.getElementById("summary");
+  var clearEl = document.getElementById("clear");
   var dotEl = document.getElementById("dot");
   var lastText = null;
   var lastOk = 0;
+  var lastCats = [];
+
+  // Locally checked-off items (this device only). Keyed by category+name+note.
+  var checked = loadChecked();
+
+  function loadChecked() {
+    try {
+      var raw = localStorage.getItem(STORE);
+      return raw ? new Set(JSON.parse(raw)) : new Set();
+    } catch (e) { return new Set(); }
+  }
+  function saveChecked() {
+    var arr = [];
+    checked.forEach(function (k) { arr.push(k); });
+    try { localStorage.setItem(STORE, JSON.stringify(arr)); } catch (e) {}
+  }
+  function keyFor(cat, name, note) { return cat + "" + name + "" + note; }
 
   function esc(s) {
     return s.replace(/[&<>"']/g, function (c) {
@@ -156,29 +186,46 @@
   }
 
   function render(cats) {
+    lastCats = cats;
+    // Drop saved checks for items no longer on the list, so storage can't grow
+    // unbounded and a re-added item comes back unchecked.
+    var live = {};
+    cats.forEach(function (c) {
+      c.items.forEach(function (it) { live[keyFor(c.cat, it.name, it.note)] = 1; });
+    });
+    var pruned = false;
+    checked.forEach(function (k) { if (!live[k]) { checked.delete(k); pruned = true; } });
+    if (pruned) saveChecked();
+
     if (!cats.length) {
       listEl.innerHTML =
         '<div class="empty"><div class="big">🛒</div>Nothing on the list yet.<br>' +
         'Ask Claude to add something.</div>';
       summaryEl.textContent = "";
+      clearEl.hidden = true;
       return;
     }
-    var total = 0, left = 0, html = "";
+    var total = 0, left = 0, checkedCount = 0, html = "";
     cats.forEach(function (c) {
-      var remaining = c.items.filter(function (it) { return !it.done; }).length;
-      total += c.items.length; left += remaining;
-      html += '<section class="cat"><h2>' + esc(c.cat) +
-        '<span class="n">' + remaining + "</span></h2><ul>";
+      var rows = "", remaining = 0;
       c.items.forEach(function (it) {
-        html += '<li class="' + (it.done ? "done" : "") + '"><span class="box"></span>' +
+        var key = keyFor(c.cat, it.name, it.note);
+        var isDone = it.done || checked.has(key);
+        if (!isDone) remaining++; else if (checked.has(key)) checkedCount++;
+        rows += '<li class="' + (isDone ? "done" : "") + '" data-key="' + esc(key) +
+          '" role="button" aria-pressed="' + (isDone ? "true" : "false") +
+          '"><span class="box"></span>' +
           '<span class="item"><span class="name">' + esc(it.name) + "</span>" +
           (it.note ? ' <span class="note">— ' + esc(it.note) + "</span>" : "") +
           "</span></li>";
       });
-      html += "</ul></section>";
+      total += c.items.length; left += remaining;
+      html += '<section class="cat"><h2>' + esc(c.cat) +
+        '<span class="n">' + remaining + "</span></h2><ul>" + rows + "</ul></section>";
     });
     listEl.innerHTML = html;
     summaryEl.textContent = left + " to buy" + (total - left > 0 ? " · " + (total - left) + " done" : "");
+    clearEl.hidden = checkedCount === 0;
   }
 
   function timeAgo(ms) {
@@ -218,6 +265,22 @@
         }
       });
   }
+
+  // Tap a row to check/uncheck it (saved on this device only).
+  listEl.addEventListener("click", function (e) {
+    var li = e.target.closest ? e.target.closest("li[data-key]") : null;
+    if (!li) return;
+    var key = li.getAttribute("data-key");
+    if (checked.has(key)) checked.delete(key); else checked.add(key);
+    saveChecked();
+    render(lastCats);
+  });
+
+  clearEl.addEventListener("click", function () {
+    checked.clear();
+    saveChecked();
+    render(lastCats);
+  });
 
   load();
   setInterval(load, POLL_MS);

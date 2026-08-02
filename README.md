@@ -11,8 +11,12 @@ partner can watch the list without any account or app.
 3. GitHub Pages rebuilds (usually 1–2 min). The shared page picks up the change
    on its next poll (every ~20s) and shows it.
 
-The page is **read-only** — it displays the list, it does not write back. All
-changes go through Claude editing `list.md`. There is no backend and no login.
+The page **displays** the list and does not write back to `list.md` — all
+changes to the list go through Claude. There is no backend and no login. As a
+convenience while shopping, you can **tap any item to check it off** (strike it
+through and drop it from the "to buy" count) and tap again to undo. These ticks
+are saved **on that device only** (browser `localStorage`), survive refreshes,
+and are not shared to the other partner's phone. "Uncheck all" clears them.
 
 ## Capture protocol (for Claude editing this repo)
 
