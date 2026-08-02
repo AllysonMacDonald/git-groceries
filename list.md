@@ -9,6 +9,7 @@ The shared page auto-refreshes within a minute or two.
 <!-- Items added from a phone via the "Add item" box land here, uncategorized.
 Claude re-files each into the right category under "## To buy" (deduped) on the
 next interaction, then clears them from here. -->
+- [ ] chamomile tea
 
 ## To buy
 
