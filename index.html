@@ -184,9 +184,8 @@
     });
   }
 
-  // Parse the "## Inbox" and "## To buy" sections into
-  // [{cat, items:[{name, note, done}]}]. Inbox items (added from a phone) show
-  // first, under a "Just added" heading, until Claude re-files them.
+  // Parse the "## To buy" section into
+  // [{cat, items:[{name, note, done}]}], one entry per "### category".
   function parse(md) {
     var lines = md.split(/\r?\n/);
     var section = null, cats = [], cur = null;
@@ -196,11 +195,7 @@
       if (h2) {
         var t = h2[1].trim().toLowerCase();
         if (t === "to buy") { section = "buy"; cur = null; }
-        else if (t === "inbox") {
-          section = "inbox";
-          cur = { cat: "🆕 Just added", items: [] };
-          cats.push(cur);
-        } else { section = null; cur = null; }
+        else { section = null; cur = null; }
         continue;
       }
       if (!section) continue;
@@ -316,9 +311,10 @@
     render(lastCats);
   });
 
-  // Add-item box: POST to the Netlify function, which appends to list.md's
-  // "## Inbox". On success we poll a couple of times so the new item shows up
-  // as soon as GitHub Pages/Netlify serves the updated file.
+  // Add-item box: POST to the Netlify function, which classifies the item and
+  // files it under the right "### category" in list.md. On success we poll a
+  // couple of times so the new item shows up as soon as GitHub Pages/Netlify
+  // serves the updated file.
   var addForm = document.getElementById("add");
   var addInput = document.getElementById("addInput");
   var addBtn = document.getElementById("addBtn");

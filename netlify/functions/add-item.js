@@ -1,9 +1,8 @@
 // Netlify Function: file a phone-added grocery item into list.md via the GitHub
-// Contents API. The item is classified into one of the 12 aisle categories and
+// Contents API. The item is classified into one of the aisle categories and
 // inserted under that "### heading" in "## To buy". Anything the classifier
-// can't place confidently falls back to "## Inbox" for Claude to file by
-// judgment on the next interaction. The live page shows the change on its next
-// poll (~20s).
+// can't place confidently is filed under the "### Uncategorized items" heading
+// (created if missing). The live page shows the change on its next poll (~20s).
 //
 // Required env var (set in Netlify dashboard → Site settings → Environment):
 //   GITHUB_TOKEN  — fine-grained PAT, repo git-groceries, Contents: read/write
@@ -48,6 +47,9 @@ function cleanItem(raw) {
 // lowercased item text. Returns the exact "### heading" text, or null when
 // nothing matches (→ caller drops it in the Inbox for Claude to file).
 // ---------------------------------------------------------------------------
+
+// Where unclassifiable items go — its own visible bucket on the list.
+const UNCATEGORIZED = "Uncategorized items";
 
 // Checked first, in order — these win over the keyword table below to resolve
 // items that would otherwise land in the wrong aisle (e.g. "frozen peas" is
@@ -158,7 +160,8 @@ function matchesKeyword(text, kw) {
   return new RegExp(`(^|[^a-z0-9])${esc}([^a-z0-9]|$)`, "i").test(text);
 }
 
-// Return the "### heading" an item belongs under, or null if unclassifiable.
+// Return the "### heading" an item belongs under, falling back to the
+// "Uncategorized items" bucket when nothing matches.
 function categorize(item) {
   const text = ` ${item.toLowerCase()} `;
   for (const [re, cat] of OVERRIDES) {
@@ -167,17 +170,24 @@ function categorize(item) {
   for (const [cat, keywords] of CATEGORIES) {
     if (keywords.some((kw) => matchesKeyword(text, kw))) return cat;
   }
-  return null;
+  return UNCATEGORIZED;
 }
 
 // ---------------------------------------------------------------------------
 // Insertion
 // ---------------------------------------------------------------------------
 
+// Find the "### <category>" heading line inside "## To buy", or -1 if absent.
+function findCategoryHeading(lines, category) {
+  const esc = category.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(`^###\\s+${esc}\\s*$`, "i");
+  return lines.findIndex((l) => re.test(l));
+}
+
 // Insert "- [ ] <item>" under the given "### <category>" heading inside
-// "## To buy". If the category can't be found, or `category` is null, insert
-// under "## Inbox" instead (creating it above "## To buy" if missing).
-// Returns { md, section } on success, or null when the item is a duplicate.
+// "## To buy". If that heading doesn't exist, append it to the end of the
+// "## To buy" section (creating "## To buy" itself as a last resort) and file
+// the item there. Returns { md, section } on success, or null on a duplicate.
 function addItem(md, item, category) {
   const line = `- [ ] ${item}`;
 
@@ -187,45 +197,37 @@ function addItem(md, item, category) {
   if (existing.some((l) => norm(l) === item.toLowerCase())) return null;
 
   const lines = md.split(/\r?\n/);
+  let headingIdx = findCategoryHeading(lines, category);
 
-  // Try to place under the "### <category>" heading (must be within "## To buy").
-  if (category) {
-    const headingIdx = lines.findIndex((l) =>
-      new RegExp(`^###\\s+${category.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`, "i").test(l)
-    );
-    if (headingIdx !== -1) {
-      // Section runs until the next "### " or "## " heading (or EOF).
+  // Heading missing (typically the "Uncategorized items" bucket) → create it at
+  // the end of the "## To buy" section.
+  if (headingIdx === -1) {
+    const buyIdx = lines.findIndex((l) => /^##\s+to buy\s*$/i.test(l));
+    if (buyIdx !== -1) {
       let end = lines.length;
-      for (let i = headingIdx + 1; i < lines.length; i++) {
-        if (/^#{2,3}\s+/.test(lines[i])) { end = i; break; }
+      for (let i = buyIdx + 1; i < lines.length; i++) {
+        if (/^##\s+/.test(lines[i])) { end = i; break; }
       }
-      // Insert after the last existing item / non-blank line in the section.
-      let insertAt = end;
-      while (insertAt > headingIdx + 1 && lines[insertAt - 1].trim() === "") insertAt--;
-      lines.splice(insertAt, 0, line);
-      return { md: lines.join("\n"), section: category };
+      while (end > buyIdx + 1 && lines[end - 1].trim() === "") end--;
+      lines.splice(end, 0, "", `### ${category}`);
+      headingIdx = end + 1;
+    } else {
+      // No "## To buy" at all — build a minimal one at the top.
+      lines.unshift("## To buy", "", `### ${category}`, "");
+      headingIdx = 2;
     }
   }
 
-  // Fallback: the Inbox.
-  const inboxIdx = lines.findIndex((l) => /^##\s+inbox\s*$/i.test(l));
-  if (inboxIdx !== -1) {
-    let end = lines.length;
-    for (let i = inboxIdx + 1; i < lines.length; i++) {
-      if (/^##\s+/.test(lines[i])) { end = i; break; }
-    }
-    let insertAt = end;
-    while (insertAt > inboxIdx + 1 && lines[insertAt - 1].trim() === "") insertAt--;
-    lines.splice(insertAt, 0, line);
-    return { md: lines.join("\n"), section: "Inbox" };
+  // Section runs until the next "### " or "## " heading (or EOF).
+  let end = lines.length;
+  for (let i = headingIdx + 1; i < lines.length; i++) {
+    if (/^#{2,3}\s+/.test(lines[i])) { end = i; break; }
   }
-
-  // No Inbox heading either: create one just above "## To buy" (or at the top).
-  const buyIdx = lines.findIndex((l) => /^##\s+to buy\s*$/i.test(l));
-  const block = ["## Inbox", "", line, ""];
-  if (buyIdx !== -1) lines.splice(buyIdx, 0, ...block);
-  else lines.unshift(...block, "");
-  return { md: lines.join("\n"), section: "Inbox" };
+  // Insert after the last existing item / non-blank line in the section.
+  let insertAt = end;
+  while (insertAt > headingIdx + 1 && lines[insertAt - 1].trim() === "") insertAt--;
+  lines.splice(insertAt, 0, line);
+  return { md: lines.join("\n"), section: category };
 }
 
 exports.handler = async (event) => {

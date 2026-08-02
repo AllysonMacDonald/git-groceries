@@ -20,18 +20,20 @@ Do this, no confirmation needed:
 "add <Recipe> to the list" → drop that recipe's whole ingredient list from
 `recipes.md` onto `## To buy`, each ingredient filed to its category, deduped.
 
-## The `## Inbox` (items added from a phone)
+## The `### Uncategorized items` bucket (items added from a phone)
 
 The live page has an "Add item" box. When a partner adds something from their
 phone, the Netlify function classifies it and files it under the right category
 in `## To buy` (deduped) — no Claude in the loop at that moment. Only items the
-classifier can't place confidently land under `## Inbox` (uncategorized).
+classifier can't place confidently land under `### Uncategorized items` (the
+last category in `## To buy`).
 
 **At the start of any interaction with this repo, and whenever you touch
-`list.md`:** if `## Inbox` has any items, re-file each one into the right
-category under `## To buy` (deduping against the whole list), remove it from
-`## Inbox`, then commit and push. Treat it exactly like an "add X to the list"
-request. Leave the `## Inbox` heading and its comment in place — just empty.
+`list.md`:** if `### Uncategorized items` has any items, re-file each one into
+the right category under `## To buy` (deduping against the whole list), remove
+it from `### Uncategorized items`, then commit and push. Treat it exactly like
+an "add X to the list" request. Leave the `### Uncategorized items` heading and
+its comment in place — just empty.
 
 ## Pushing
 

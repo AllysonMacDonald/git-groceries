@@ -15,8 +15,9 @@ serverless function so a partner can **add items straight from their phone**.
   The Netlify function `netlify/functions/add-item.js` classifies it into the
   right category (the 12 buckets below) and files it under that heading in
   `## To buy`, deduping against the whole list. No account, no login. Items the
-  classifier can't place confidently land under `## Inbox` instead, and Claude
-  files those by judgment on its next interaction.
+  classifier can't place confidently land under a `### Uncategorized items`
+  bucket at the end of `## To buy`, and Claude re-files those by judgment on its
+  next interaction.
 
 Either way, the shared page picks up the change on its next poll (~20s) once the
 updated file is published.
