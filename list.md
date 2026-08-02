@@ -15,6 +15,7 @@ The shared page auto-refreshes within a minute or two.
 ### Bakery
 
 ### Pantry staples
+- [ ] yellow mustard
 
 ### Frozen foods
 
