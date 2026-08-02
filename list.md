@@ -9,12 +9,11 @@ The shared page auto-refreshes within a minute or two.
 <!-- Items added from a phone via the "Add item" box land here, uncategorized.
 Claude re-files each into the right category under "## To buy" (deduped) on the
 next interaction, then clears them from here. -->
-- [ ] chamomile tea
-- [ ] add romaine lettuce
 
 ## To buy
 
 ### Fruit & vegetables
+- [ ] romaine lettuce
 - [ ] cucumber — Greek pasta salad
 - [ ] cherry tomatoes — Greek pasta salad
 - [ ] red onion — Greek pasta salad
@@ -60,6 +59,7 @@ next interaction, then clears them from here. -->
 ### Snacks
 
 ### Beverages
+- [ ] chamomile tea
 
 ### Cleaning products
 
