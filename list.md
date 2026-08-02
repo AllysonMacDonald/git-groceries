@@ -27,6 +27,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] shrimp — chowder
 - [ ] scallops — chowder
 - [ ] bacon — chowder
+- [ ] chicken thighs
 
 ### Dairy & eggs
 - [ ] milk — chowder
