@@ -47,10 +47,13 @@ asked ("plan this week's meals"). Steps:
    stovetop/oven for the 12-year-old). Keep them **~30 min and mild**; **vary
    cuisines and proteins** across the six; **don't repeat** anything from the
    last ~3–4 weeks in `meal-plans.md`.
-3. **Source as needed:** prefer recipes already in `recipes.md`. If you need a
-   new one, write it into `recipes.md` in the standard format — a `##` title, a
-   `*summary*` line, a `<!-- tags: short-nickname -->` line, `### Ingredients`
-   (`- [ ]` lines), `### Method`, and `**Notes:**`.
+3. **Source — about half new, half favorites:** each week source roughly **3
+   new** recipes from outside `recipes.md` (your culinary knowledge and the web)
+   and reuse roughly **3** from the existing collection (respecting the no-repeat
+   rule). Write every new recipe into `recipes.md` in the standard format — a
+   `##` title, a `*summary*` line, a `<!-- tags: short-nickname -->` line,
+   `### Ingredients` (`- [ ]` lines), `### Method`, and `**Notes:**`. If you adapt
+   one you found online, rewrite it in your own words (don't paste verbatim).
 4. **Add to the list (auto, no approval):** file every ingredient onto `## To
    buy` in the right aisle, deduped against the whole list, each tagged with its
    recipe's nickname as the ` — note` (e.g. `- [ ] baby potatoes — sheet-pan

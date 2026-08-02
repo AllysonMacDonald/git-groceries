@@ -41,9 +41,11 @@ and follows these rules:
 - **Constraints:** ~30-min weeknight dinners, mild (kid palates); vary cuisines
   and proteins across the six and week to week; avoid repeating a recipe from the
   last ~3–4 weeks.
-- **Sourcing:** prefer recipes already in `recipes.md`; add one or two new ones
-  when the collection is thin or for variety. New recipes are written into
-  `recipes.md` in the standard format (with a `<!-- tags: … -->` line).
+- **Sourcing (half new, half favorites):** each week source ~3 **new** recipes
+  from outside the collection (Claude's knowledge + the web) and reuse ~3 from
+  `recipes.md`, never repeating the last ~3–4 weeks. Every new recipe is written
+  into `recipes.md` in the standard format (with a `<!-- tags: … -->` line), so
+  the collection keeps growing.
 - **To the list:** file every ingredient onto `## To buy`, each in the right
   aisle, deduped against the whole list, tagged with its recipe (e.g.
   `— sheet-pan chicken`). This is an **auto-add** — the six land on the list
