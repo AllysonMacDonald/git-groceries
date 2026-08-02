@@ -1,22 +1,40 @@
 # git-groceries
 
 A shared, live grocery list. `list.md` is the single source of truth. `index.html`
-is a static page (GitHub Pages) that displays `list.md` and auto-refreshes, so a
-partner can watch the list without any account or app.
+displays `list.md` and auto-refreshes, so a partner can watch the list without any
+account or app. The page is hosted on **Netlify**, which also runs one small
+serverless function so a partner can **add items straight from their phone**.
 
 ## How it flows
 
-1. From any device: tell Claude **"add milk and eggs to the list."**
-2. Claude edits `list.md`, commits, and pushes to `main`.
-3. GitHub Pages rebuilds (usually 1–2 min). The shared page picks up the change
-   on its next poll (every ~20s) and shows it.
+**Two ways to add:**
 
-The page **displays** the list and does not write back to `list.md` — all
-changes to the list go through Claude. There is no backend and no login. As a
-convenience while shopping, you can **tap any item to check it off** (strike it
-through and drop it from the "to buy" count) and tap again to undo. These ticks
-are saved **on that device only** (browser `localStorage`), survive refreshes,
-and are not shared to the other partner's phone. "Uncheck all" clears them.
+- **Tell Claude** — from any device: **"add milk and eggs to the list."** Claude
+  files each item into the right category, commits, and pushes to `main`.
+- **The "Add item" box on the page** — a partner types an item and taps **Add**.
+  It lands under `## Inbox` in `list.md` (uncategorized) via the Netlify function
+  `netlify/functions/add-item.js`. No account, no login. Next time Claude touches
+  the list it re-files those Inbox items into the right categories and dedupes.
+
+Either way, the shared page picks up the change on its next poll (~20s) once the
+updated file is published.
+
+As a convenience while shopping, you can **tap any item to check it off** (strike
+it through and drop it from the "to buy" count) and tap again to undo. These ticks
+are saved **on that device only** (browser `localStorage`), survive refreshes, and
+are not shared to the other partner's phone. "Uncheck all" clears them.
+
+## Deploy / setup (Netlify)
+
+The site is static — no build step. `netlify.toml` sets the publish dir to the repo
+root and the functions dir to `netlify/functions`. To make the "Add item" box work,
+set one environment variable in **Netlify → Site settings → Environment variables**:
+
+- `GITHUB_TOKEN` — a fine-grained PAT for this repo with **Contents: read/write**.
+
+Optional env vars: `GH_OWNER`, `GH_REPO`, `GH_BRANCH`, `GH_PATH` (defaults target
+`allysonmacdonald/git-groceries` `main` `list.md`), and `ADD_SECRET` (if set, the
+page must send a matching secret — off by default; see the note in the function).
 
 ## Capture protocol (for Claude editing this repo)
 

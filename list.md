@@ -4,6 +4,12 @@ The one true list. Add items by telling Claude "add X to the list" from any
 device — Claude files each item under the right category, commits, and pushes.
 The shared page auto-refreshes within a minute or two.
 
+## Inbox
+
+<!-- Items added from a phone via the "Add item" box land here, uncategorized.
+Claude re-files each into the right category under "## To buy" (deduped) on the
+next interaction, then clears them from here. -->
+
 ## To buy
 
 ### Fruit & vegetables

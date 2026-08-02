@@ -1,0 +1,13 @@
+# Netlify config for git-groceries.
+# The site is plain static files (no build step); the one dynamic piece is a
+# serverless function that appends phone-added items to list.md via the GitHub API.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Nice short path: POST /api/add-item -> the function.
+[[redirects]]
+  from = "/api/add-item"
+  to = "/.netlify/functions/add-item"
+  status = 200

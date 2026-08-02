@@ -20,6 +20,18 @@ Do this, no confirmation needed:
 "add <Recipe> to the list" → drop that recipe's whole ingredient list from
 `recipes.md` onto `## To buy`, each ingredient filed to its category, deduped.
 
+## The `## Inbox` (items added from a phone)
+
+The live page has an "Add item" box. When a partner adds something from their
+phone, it lands as a `- [ ] item` line under `## Inbox` in `list.md`
+(uncategorized) via a Netlify function — no Claude in the loop at that moment.
+
+**At the start of any interaction with this repo, and whenever you touch
+`list.md`:** if `## Inbox` has any items, re-file each one into the right
+category under `## To buy` (deduping against the whole list), remove it from
+`## Inbox`, then commit and push. Treat it exactly like an "add X to the list"
+request. Leave the `## Inbox` heading and its comment in place — just empty.
+
 ## Pushing
 
 Direct push is set up: HTTPS with a fine-grained PAT stored in

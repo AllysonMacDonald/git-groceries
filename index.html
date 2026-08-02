@@ -69,6 +69,27 @@
     border: none; padding: 4px 2px; cursor: pointer; white-space: nowrap;
   }
   .clear[hidden] { display: none; }
+  .add {
+    display: flex; gap: 8px; margin: 0 2px 14px;
+  }
+  .add input {
+    flex: 1; font: inherit; font-size: 17px; color: var(--text);
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 14px; box-shadow: var(--shadow); min-width: 0;
+  }
+  .add input:focus { outline: none; border-color: var(--accent); }
+  .add button {
+    font: inherit; font-weight: 600; color: #fff; background: var(--accent);
+    border: none; border-radius: 12px; padding: 0 18px; cursor: pointer;
+    box-shadow: var(--shadow); white-space: nowrap;
+  }
+  .add button:disabled { opacity: .5; cursor: default; }
+  .add-msg {
+    margin: -6px 4px 14px; font-size: 13px; color: var(--muted); min-height: 1em;
+  }
+  .add-msg.ok { color: var(--accent); }
+  .add-msg.err { color: #c0392b; }
+  .add-msg[hidden] { display: none; }
   .cat {
     background: var(--card); border: 1px solid var(--line); border-radius: 14px;
     box-shadow: var(--shadow); padding: 6px 16px 10px; margin-bottom: 14px;
@@ -118,6 +139,12 @@
     <div class="status"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
   </header>
   <p class="summary"><span id="summary"></span><button class="clear" id="clear" hidden>Uncheck all</button></p>
+  <form class="add" id="add" autocomplete="off">
+    <input id="addInput" name="item" type="text" inputmode="text"
+      placeholder="Add an item…" maxlength="200" enterkeyhint="done" aria-label="Add an item">
+    <button type="submit" id="addBtn">Add</button>
+  </form>
+  <p class="add-msg" id="addMsg" role="status" aria-live="polite" hidden></p>
   <main id="list"></main>
   <footer>Live view of <code>list.md</code> · updates automatically</footer>
 
@@ -157,21 +184,28 @@
     });
   }
 
-  // Parse the "## To buy" section into [{cat, items:[{name, note, done}]}]
+  // Parse the "## Inbox" and "## To buy" sections into
+  // [{cat, items:[{name, note, done}]}]. Inbox items (added from a phone) show
+  // first, under a "Just added" heading, until Claude re-files them.
   function parse(md) {
     var lines = md.split(/\r?\n/);
-    var inBuy = false, cats = [], cur = null;
+    var section = null, cats = [], cur = null;
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i];
       var h2 = line.match(/^##\s+(.*\S)\s*$/);
       if (h2) {
-        inBuy = /^to buy$/i.test(h2[1].trim());
-        cur = null;
+        var t = h2[1].trim().toLowerCase();
+        if (t === "to buy") { section = "buy"; cur = null; }
+        else if (t === "inbox") {
+          section = "inbox";
+          cur = { cat: "🆕 Just added", items: [] };
+          cats.push(cur);
+        } else { section = null; cur = null; }
         continue;
       }
-      if (!inBuy) continue;
+      if (!section) continue;
       var h3 = line.match(/^###\s+(.*\S)\s*$/);
-      if (h3) { cur = { cat: h3[1].trim(), items: [] }; cats.push(cur); continue; }
+      if (h3 && section === "buy") { cur = { cat: h3[1].trim(), items: [] }; cats.push(cur); continue; }
       var item = line.match(/^\s*[-*]\s+\[( |x|X)\]\s+(.*\S)\s*$/);
       if (item) {
         if (!cur) { cur = { cat: "Items", items: [] }; cats.push(cur); }
@@ -280,6 +314,49 @@
     checked.clear();
     saveChecked();
     render(lastCats);
+  });
+
+  // Add-item box: POST to the Netlify function, which appends to list.md's
+  // "## Inbox". On success we poll a couple of times so the new item shows up
+  // as soon as GitHub Pages/Netlify serves the updated file.
+  var addForm = document.getElementById("add");
+  var addInput = document.getElementById("addInput");
+  var addBtn = document.getElementById("addBtn");
+  var addMsg = document.getElementById("addMsg");
+
+  function showMsg(text, kind) {
+    addMsg.textContent = text;
+    addMsg.className = "add-msg" + (kind ? " " + kind : "");
+    addMsg.hidden = !text;
+  }
+
+  addForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var item = addInput.value.trim();
+    if (!item) return;
+    addBtn.disabled = true;
+    showMsg("Adding…", "");
+    fetch("/api/add-item", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item: item }),
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.d.ok) throw new Error((res.d && res.d.error) || "Couldn't add.");
+        if (res.d.duplicate) showMsg('"' + res.d.item + '" is already on the list.', "ok");
+        else showMsg('Added "' + res.d.item + '" ✓', "ok");
+        addInput.value = "";
+        // Nudge a few refreshes; the file takes a moment to publish.
+        load();
+        setTimeout(load, 3000);
+        setTimeout(load, 8000);
+        setTimeout(function () { showMsg("", ""); }, 4000);
+      })
+      .catch(function (err) {
+        showMsg(err.message || "Couldn't add. Try again.", "err");
+      })
+      .then(function () { addBtn.disabled = false; });
   });
 
   load();
