@@ -315,3 +315,33 @@ cooked chicken for a heartier adult version.
 
 **Notes:** Lacto-ovo vegetarian. Add cooked chicken or leftover beef to some for
 a heartier version. Keep the salsa mild for the kids.
+
+---
+
+## Classic Basil Pesto
+*Fresh Genovese-style sauce. Makes ~1 cup. ~10 min. No cooking.*
+<!-- tags: pesto -->
+
+### Ingredients
+- [ ] fresh basil, 2 cups packed leaves (~2 large bunches)
+- [ ] pine nuts, ⅓ cup
+- [ ] parmesan cheese, ½ cup grated
+- [ ] garlic, 2 cloves
+- [ ] olive oil, ½ cup (extra-virgin)
+- [ ] lemon, 1 (optional, for brightness)
+- [ ] salt & pepper
+
+### Method
+1. **Toast (optional):** Warm the pine nuts in a dry pan over medium heat 2–3 min
+   until fragrant and lightly golden. Cool. (Skip if you're in a hurry.)
+2. **Blitz:** In a food processor, pulse the basil, pine nuts, garlic, and
+   parmesan until coarsely chopped.
+3. **Stream the oil:** With the motor running, drizzle in the olive oil until it
+   comes together into a loose paste. Don't over-process — a little texture is good.
+4. **Season:** Stir in a squeeze of lemon if using, and salt and pepper to taste.
+
+**Notes:** Lacto-ovo vegetarian. Toss with hot pasta (loosen with a splash of the
+pasta water), spread on sandwiches, or dollop over chicken, fish, or roasted veg.
+Keeps ~5 days in the fridge with a thin layer of oil on top, or freeze in an ice
+cube tray. No pine nuts? Walnuts or toasted sunflower seeds work. For a dairy-free
+version, leave out the parmesan and add extra salt plus a spoon of nutritional yeast.
