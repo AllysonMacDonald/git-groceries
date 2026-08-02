@@ -81,6 +81,13 @@ cache-buster) and re-renders. Empty categories are hidden. Optionally you can ad
 ` — note` after an item (e.g. `- [ ] celery — chowder`) and the note renders in a
 lighter style.
 
+**This week's recipes.** Below the list, the page also fetches `recipes.md` and
+shows the recipes whose ingredients are on the list right now — matching each
+item's ` — note` tag against the recipe's `tags` (or its title). Each recipe is a
+collapsible card (tap the title to open); tapping an ingredient ticks it off your
+cooking checklist. Those recipe ticks are this-device-only and completely separate
+from the grocery list — they never check anything off `list.md`.
+
 Share this URL with your partner (fill in your GitHub username):
 
 ```

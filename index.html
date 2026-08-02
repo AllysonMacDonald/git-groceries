@@ -131,6 +131,55 @@
   .empty .big { font-size: 40px; margin-bottom: 10px; }
   footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 22px; }
   a { color: var(--accent); }
+
+  /* Recipes below the list */
+  #recipes[hidden] { display: none; }
+  .recipes-head { margin: 30px 2px 12px; }
+  .recipes-title { font-size: 20px; font-weight: 700; letter-spacing: -.01em; margin: 0; }
+  .recipes-sub { font-size: 13px; color: var(--muted); margin: 5px 0 0; line-height: 1.45; }
+  .recipe {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden;
+  }
+  .recipe-head {
+    width: 100%; display: flex; align-items: center; gap: 12px; font: inherit;
+    background: none; border: none; padding: 14px 16px; cursor: pointer;
+    color: var(--text); text-align: left;
+  }
+  .recipe-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .recipe-titles { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .recipe-name { font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+  .recipe-sum { font-size: 13px; color: var(--muted); }
+  .chev {
+    flex: 0 0 auto; width: 9px; height: 9px; margin-right: 3px;
+    border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg); transition: transform .18s ease;
+  }
+  .recipe.open .chev { transform: rotate(-135deg); }
+  .recipe-body { padding: 0 16px 14px; border-top: 1px solid var(--line); }
+  .recipe-body[hidden] { display: none; }
+  .ing-label, .method-label {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--muted); margin: 15px 0 4px;
+  }
+  ul.ings { list-style: none; margin: 0; padding: 0; }
+  li.ring {
+    display: flex; align-items: flex-start; gap: 11px; padding: 8px 2px;
+    border-top: 1px solid var(--line); font-size: 16px; cursor: pointer;
+    user-select: none; -webkit-user-select: none; transition: opacity .15s;
+  }
+  li.ring:first-child { border-top: none; }
+  li.ring:active { opacity: .55; }
+  li.ring.done .box { background: var(--accent); border-color: var(--accent); position: relative; }
+  li.ring.done .box::after {
+    content: ""; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px;
+    border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  li.ring.done .rname { color: var(--done); text-decoration: line-through; }
+  .rname { flex: 1; }
+  ol.steps { margin: 4px 0 0; padding-left: 22px; }
+  ol.steps li { padding: 4px 0 4px 3px; font-size: 15px; line-height: 1.5; }
+  .rnote { font-size: 14px; color: var(--muted); margin: 15px 0 2px; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -146,14 +195,19 @@
   </form>
   <p class="add-msg" id="addMsg" role="status" aria-live="polite" hidden></p>
   <main id="list"></main>
+  <section id="recipes" hidden></section>
   <footer>Live view of <code>list.md</code> · updates automatically</footer>
 
 <script>
 (function () {
   var SOURCE = "list.md";
+  var RECIPE_SOURCE = "recipes.md";
   var POLL_MS = 20000;
   var STORE = "gg.checked.v1";
+  var RSTORE = "gg.recipeChecked.v1";
+  var ROPEN = "gg.recipeOpen.v1";
   var listEl = document.getElementById("list");
+  var recipesEl = document.getElementById("recipes");
   var statusEl = document.getElementById("status");
   var summaryEl = document.getElementById("summary");
   var clearEl = document.getElementById("clear");
@@ -161,9 +215,16 @@
   var lastText = null;
   var lastOk = 0;
   var lastCats = [];
+  var lastRecipesText = null;
+  var lastRecipes = [];
+  var lastListTags = [];
 
   // Locally checked-off items (this device only). Keyed by category+name+note.
   var checked = loadChecked();
+  // Recipe ingredient ticks and open/closed recipes — also this device only,
+  // and completely separate from the grocery ticks above.
+  var recipeChecked = loadSet(RSTORE);
+  var recipeOpen = loadSet(ROPEN);
 
   function loadChecked() {
     try {
@@ -176,12 +237,243 @@
     checked.forEach(function (k) { arr.push(k); });
     try { localStorage.setItem(STORE, JSON.stringify(arr)); } catch (e) {}
   }
+  function loadSet(store) {
+    try {
+      var raw = localStorage.getItem(store);
+      return raw ? new Set(JSON.parse(raw)) : new Set();
+    } catch (e) { return new Set(); }
+  }
+  function saveSet(store, set) {
+    var arr = [];
+    set.forEach(function (k) { arr.push(k); });
+    try { localStorage.setItem(store, JSON.stringify(arr)); } catch (e) {}
+  }
+  function recipeKey(title, text) { return title + "" + text; }
   function keyFor(cat, name, note) { return cat + "" + name + "" + note; }
 
   function esc(s) {
     return s.replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
+  }
+
+  // Escape HTML, then render a tiny markdown subset (**bold**) for recipe text.
+  function inline(s) {
+    return esc(s).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  }
+
+  // Normalize a tag/nickname/title for matching: drop parentheticals, keep
+  // letters/digits/hyphen/space, lowercase, collapse whitespace.
+  function normTag(s) {
+    return String(s)
+      .toLowerCase()
+      .replace(/\([^)]*\)/g, " ")
+      .replace(/[^a-z0-9\- ]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  // Collect the recipe nicknames referenced by the list's " — note" tags.
+  // "Greek pasta salad, chowder" -> ["greek pasta salad","chowder"].
+  function listTagsFromCats(cats) {
+    var seen = {}, out = [];
+    cats.forEach(function (c) {
+      c.items.forEach(function (it) {
+        if (!it.note) return;
+        it.note.split(",").forEach(function (part) {
+          var t = normTag(part);
+          if (t && !seen[t]) { seen[t] = 1; out.push(t); }
+        });
+      });
+    });
+    return out;
+  }
+
+  // Does note token `needle` appear as a whole word inside `hay`?
+  function wordContains(hay, needle) {
+    if (!needle || needle.length < 3) return false;
+    var esc = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    try { return new RegExp("\\b" + esc + "\\b").test(hay); } catch (e) { return false; }
+  }
+
+  // A recipe is "this week's" if any list note matches its tags or its title.
+  function recipeActive(r, listTags) {
+    for (var i = 0; i < listTags.length; i++) {
+      var t = listTags[i];
+      if (!t) continue;
+      for (var j = 0; j < r.matchStrings.length; j++) {
+        var s = r.matchStrings[j];
+        if (s && (s === t || wordContains(s, t))) return true;
+      }
+    }
+    return false;
+  }
+
+  // Parse recipes.md into
+  // [{title, summary, matchStrings:[...], blocks:[...]}] where a block is one of:
+  //   {type:"ingredients", label, items:[text]}  (checkable)
+  //   {type:"method", steps:[html]}
+  //   {type:"notes", parts:[text]}
+  function parseRecipes(md) {
+    var lines = md.split(/\r?\n/);
+    var recipes = [], cur = null, mode = null, ingBlock = null, method = null, notes = null;
+
+    function finalize(r) {
+      var strs = [normTag(r.title)];
+      r.tags.forEach(function (t) { if (strs.indexOf(t) === -1) strs.push(t); });
+      r.matchStrings = strs;
+      delete r.tags;
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var h2 = line.match(/^##\s+(.*\S)\s*$/);
+      if (h2) {
+        if (cur) { finalize(cur); recipes.push(cur); }
+        cur = { title: h2[1].trim(), summary: "", tags: [], blocks: [] };
+        mode = null; ingBlock = null; method = null; notes = null;
+        continue;
+      }
+      if (!cur) continue; // skip the "# Recipes" preamble before the first recipe
+
+      var tagLine = line.match(/^<!--\s*tags?:\s*([\s\S]*?)\s*-->\s*$/i);
+      if (tagLine) {
+        tagLine[1].split(",").forEach(function (s) {
+          var t = normTag(s);
+          if (t) cur.tags.push(t);
+        });
+        continue;
+      }
+
+      if (/^---\s*$/.test(line)) { mode = null; continue; }
+
+      // Notes lead-in (may appear after Method, outside any "###").
+      var noteLead = line.match(/^\*\*Notes?:?\*\*:?\s*(.*)$/i);
+      if (noteLead) {
+        notes = { type: "notes", parts: [] };
+        if (noteLead[1].trim()) notes.parts.push(noteLead[1].trim());
+        cur.blocks.push(notes);
+        mode = "notes";
+        continue;
+      }
+
+      var h3 = line.match(/^###\s+(.*\S)\s*$/);
+      if (h3) {
+        var name = h3[1].trim().toLowerCase();
+        if (name.indexOf("ingredient") !== -1) { mode = "ing"; ingBlock = null; }
+        else if (name.indexOf("method") !== -1 || name.indexOf("direction") !== -1 || name.indexOf("step") !== -1) {
+          mode = "method"; method = { type: "method", steps: [] }; cur.blocks.push(method);
+        } else { mode = "other"; }
+        continue;
+      }
+
+      // Summary: the italic line right under the title, before any "###".
+      if (mode === null && !cur.summary) {
+        var em = line.match(/^\*(?!\*)(.+?)\*\s*$/);
+        if (em) { cur.summary = em[1].trim(); continue; }
+      }
+
+      if (mode === "ing") {
+        // A fully-bold label starts an ingredient sub-group (e.g. "**Dressing:**").
+        var label = line.match(/^\*\*(.+?)\*\*\s*$/);
+        if (label) {
+          var lab = label[1].replace(/:\s*$/, "").trim();
+          ingBlock = { type: "ingredients", label: lab, items: [] };
+          cur.blocks.push(ingBlock);
+          continue;
+        }
+        var item = line.match(/^\s*[-*]\s+\[[ xX]\]\s+(.*\S)\s*$/);
+        if (item) {
+          if (!ingBlock) { ingBlock = { type: "ingredients", label: "", items: [] }; cur.blocks.push(ingBlock); }
+          ingBlock.items.push(item[1].trim());
+        }
+        continue;
+      }
+
+      if (mode === "method") {
+        var step = line.match(/^\s*\d+\.\s+(.*\S)\s*$/);
+        if (step) { method.steps.push(step[1].trim()); continue; }
+        var t = line.trim();
+        if (t && method.steps.length) { method.steps[method.steps.length - 1] += " " + t; }
+        continue;
+      }
+
+      if (mode === "notes") {
+        var nt = line.trim();
+        if (nt) notes.parts.push(nt);
+        continue;
+      }
+    }
+    if (cur) { finalize(cur); recipes.push(cur); }
+    return recipes;
+  }
+
+  function recipeBodyHtml(r) {
+    var out = "";
+    r.blocks.forEach(function (b) {
+      if (b.type === "ingredients") {
+        if (!b.items.length) return;
+        if (b.label) out += '<div class="ing-label">' + inline(b.label) + "</div>";
+        out += '<ul class="ings">';
+        b.items.forEach(function (text) {
+          var key = recipeKey(r.title, text);
+          var done = recipeChecked.has(key);
+          out += '<li class="ring ' + (done ? "done" : "") + '" data-rkey="' + esc(key) +
+            '" role="button" aria-pressed="' + (done ? "true" : "false") +
+            '"><span class="box"></span><span class="rname">' + inline(text) + "</span></li>";
+        });
+        out += "</ul>";
+      } else if (b.type === "method") {
+        if (!b.steps.length) return;
+        out += '<div class="method-label">Method</div><ol class="steps">';
+        b.steps.forEach(function (st) { out += "<li>" + inline(st) + "</li>"; });
+        out += "</ol>";
+      } else if (b.type === "notes") {
+        if (!b.parts.length) return;
+        out += '<p class="rnote"><strong>Notes:</strong> ' + inline(b.parts.join(" ")) + "</p>";
+      }
+    });
+    return out;
+  }
+
+  function renderRecipes(recipes, listTags) {
+    if (!recipesEl) return;
+    recipes = recipes || [];
+    listTags = listTags || [];
+
+    // Prune ticks for ingredients no longer in any recipe (keep across active/
+    // inactive so a recipe leaving/returning doesn't lose your checklist).
+    if (recipes.length) {
+      var liveKeys = {};
+      recipes.forEach(function (r) {
+        r.blocks.forEach(function (b) {
+          if (b.type === "ingredients") b.items.forEach(function (t) { liveKeys[recipeKey(r.title, t)] = 1; });
+        });
+      });
+      var pruned = false;
+      recipeChecked.forEach(function (k) { if (!liveKeys[k]) { recipeChecked.delete(k); pruned = true; } });
+      if (pruned) saveSet(RSTORE, recipeChecked);
+    }
+
+    var active = recipes.filter(function (r) { return recipeActive(r, listTags); });
+    if (!active.length) { recipesEl.innerHTML = ""; recipesEl.hidden = true; return; }
+    recipesEl.hidden = false;
+
+    var html = '<div class="recipes-head"><h2 class="recipes-title">This week’s recipes</h2>' +
+      '<p class="recipes-sub">Tap a recipe to open it. Ticking an ingredient here is just your ' +
+      'cooking checklist — it doesn’t change the grocery list.</p></div>';
+    active.forEach(function (r) {
+      var open = recipeOpen.has(r.title);
+      html += '<section class="recipe' + (open ? " open" : "") + '">' +
+        '<button class="recipe-head" type="button" aria-expanded="' + (open ? "true" : "false") +
+        '" data-recipe="' + esc(r.title) + '"><span class="recipe-titles">' +
+        '<span class="recipe-name">' + esc(r.title) + "</span>" +
+        (r.summary ? '<span class="recipe-sum">' + esc(r.summary) + "</span>" : "") +
+        '</span><span class="chev" aria-hidden="true"></span></button>' +
+        '<div class="recipe-body"' + (open ? "" : " hidden") + ">" + recipeBodyHtml(r) + "</div>" +
+        "</section>";
+    });
+    recipesEl.innerHTML = html;
   }
 
   // Parse the "## To buy" section into
@@ -216,6 +508,10 @@
 
   function render(cats) {
     lastCats = cats;
+    // Recompute which recipes are "this week's" from the list's note tags,
+    // and refresh the recipes panel (uses whatever recipes.md we last fetched).
+    lastListTags = listTagsFromCats(cats);
+    renderRecipes(lastRecipes, lastListTags);
     // Drop saved checks for items no longer on the list, so storage can't grow
     // unbounded and a re-added item comes back unchecked.
     var live = {};
@@ -295,6 +591,21 @@
       });
   }
 
+  // Fetch recipes.md (best effort — never blocks the grocery list). Which
+  // recipes are shown depends on lastListTags, computed when the list renders.
+  function loadRecipes() {
+    fetch(RECIPE_SOURCE + "?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      })
+      .then(function (text) {
+        if (text !== lastRecipesText) { lastRecipesText = text; lastRecipes = parseRecipes(text); }
+        renderRecipes(lastRecipes, lastListTags);
+      })
+      .catch(function () { /* keep whatever we have; if nothing, panel stays hidden */ });
+  }
+
   // Tap a row to check/uncheck it (saved on this device only).
   listEl.addEventListener("click", function (e) {
     var li = e.target.closest ? e.target.closest("li[data-key]") : null;
@@ -303,6 +614,26 @@
     if (checked.has(key)) checked.delete(key); else checked.add(key);
     saveChecked();
     render(lastCats);
+  });
+
+  // Recipes panel: tap a header to expand/collapse; tap an ingredient to tick it
+  // off your cooking checklist. Both are this-device-only and never touch the
+  // grocery list or its ticks.
+  recipesEl.addEventListener("click", function (e) {
+    var head = e.target.closest ? e.target.closest(".recipe-head") : null;
+    if (head) {
+      var title = head.getAttribute("data-recipe");
+      if (recipeOpen.has(title)) recipeOpen.delete(title); else recipeOpen.add(title);
+      saveSet(ROPEN, recipeOpen);
+      renderRecipes(lastRecipes, lastListTags);
+      return;
+    }
+    var li = e.target.closest ? e.target.closest("li.ring[data-rkey]") : null;
+    if (!li) return;
+    var key = li.getAttribute("data-rkey");
+    if (recipeChecked.has(key)) recipeChecked.delete(key); else recipeChecked.add(key);
+    saveSet(RSTORE, recipeChecked);
+    renderRecipes(lastRecipes, lastListTags);
   });
 
   clearEl.addEventListener("click", function () {
@@ -355,11 +686,13 @@
       .then(function () { addBtn.disabled = false; });
   });
 
-  load();
-  setInterval(load, POLL_MS);
+  function refresh() { load(); loadRecipes(); }
+
+  refresh();
+  setInterval(refresh, POLL_MS);
   setInterval(setStatus, 5000);
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) load(); });
-  window.addEventListener("focus", load);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) refresh(); });
+  window.addEventListener("focus", refresh);
 })();
 </script>
 </body>

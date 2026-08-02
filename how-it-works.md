@@ -25,6 +25,15 @@ and its weekly re-share step, which are retired.)
 
 "add Seafood Chowder to the list" drops that recipe's whole ingredient list onto
 `## To buy`, each ingredient filed to its category, deduped against what's there.
+File each ingredient with the recipe's short tag as its ` — note` (e.g.
+`— chowder`) so the recipe shows up on the page automatically (see below).
+
+## Recipes on the page
+
+`index.html` also renders `recipes.md` below the list as collapsible cards, but
+only for recipes tied to this week's list — it matches list items' ` — note` tags
+against each recipe's `<!-- tags: … -->` line (falling back to the title). Recipe
+ingredient checkboxes are a per-device cooking checklist and don't touch `list.md`.
 
 ## Staples nudge
 

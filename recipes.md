@@ -5,12 +5,20 @@ Each recipe lists its **ingredients** (for the grocery list) and its **method**
 ingredient list drops onto `## To buy` in `list.md` — deduped against
 what's already there and what's in the pantry.
 
-Format per recipe: a `##` heading, an ingredients checklist, then steps.
+Format per recipe: a `##` heading, an optional `<!-- tags: … -->` line (short
+list-note nicknames, comma-separated), an ingredients checklist, then steps.
+
+The shared page shows a recipe automatically once any of its ingredients are on
+`list.md` — it matches the ` — note` tags on list items against each recipe's
+`tags` (falling back to the recipe title). So when you file a recipe's
+ingredients, use that recipe's tag as the note (e.g. `- [ ] celery — chowder`).
 
 ---
 
 ## Seafood Chowder
 *Classic New England style. Serves 4–6. ~45 min.*
+<!-- tags: chowder -->
+
 
 ### Ingredients
 - [ ] white fish (cod or haddock), ~½ lb
@@ -51,6 +59,8 @@ crackers or bread you've got on hand.
 
 ## Classic Three-Bean Salad
 *Tangy sweet-sour picnic salad. Serves 6–8. ~15 min + chill. No cooking.*
+<!-- tags: three-bean salad -->
+
 
 ### Ingredients
 - [ ] green beans, 1 can (~14 oz), drained
@@ -83,6 +93,8 @@ prefer. Drain well before serving so it isn't watery.
 
 ## Greek Pasta Salad (Feta & Olives)
 *Loaded Mediterranean picnic salad. Serves 6–8. ~20 min + chill. Boil pasta only.*
+<!-- tags: greek pasta salad -->
+
 
 ### Ingredients
 - [ ] short pasta (rotini or fusilli), ~1 lb
