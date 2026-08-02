@@ -35,6 +35,33 @@ it from `### Uncategorized items`, then commit and push. Treat it exactly like
 an "add X to the list" request. Leave the `### Uncategorized items` heading and
 its comment in place — just empty.
 
+## Weekly meal planner (Mondays 9am Atlantic — auto)
+
+A scheduled cloud agent runs this every Monday. Any Claude can run it too if
+asked ("plan this week's meals"). Steps:
+
+1. **Read** `preferences.md` (the family taste profile), `recipes.md` (the
+   collection), `meal-plans.md` (recent weeks — to avoid repeats), and `list.md`.
+2. **Pick 6 dinners** for the week: **2 vegetarian (lacto-ovo) · 2 simple
+   meat-and-veg · 2 kid-friendly** (one no-heat for the 8-year-old, one
+   stovetop/oven for the 12-year-old). Keep them **~30 min and mild**; **vary
+   cuisines and proteins** across the six; **don't repeat** anything from the
+   last ~3–4 weeks in `meal-plans.md`.
+3. **Source as needed:** prefer recipes already in `recipes.md`. If you need a
+   new one, write it into `recipes.md` in the standard format — a `##` title, a
+   `*summary*` line, a `<!-- tags: short-nickname -->` line, `### Ingredients`
+   (`- [ ]` lines), `### Method`, and `**Notes:**`.
+4. **Add to the list (auto, no approval):** file every ingredient onto `## To
+   buy` in the right aisle, deduped against the whole list, each tagged with its
+   recipe's nickname as the ` — note` (e.g. `- [ ] baby potatoes — sheet-pan
+   chicken`). Merge the tag into an existing item's note rather than duplicating.
+   Skip basics like salt, pepper, and water.
+5. **Log it:** prepend the week's six to `meal-plans.md` (see its format).
+6. **Commit and push** to `main`. Also re-file `### Uncategorized items` if any.
+
+The six then appear on the page automatically (the page shows recipes whose
+ingredients are on the list). See `how-it-works.md` → "Weekly meal planning".
+
 ## Pushing
 
 Direct push is set up: HTTPS with a fine-grained PAT stored in
@@ -52,5 +79,8 @@ takes ~1–2 min to rebuild. State facts only after checking.
 
 - `README.md` — capture protocol + the 12 categories (aisle order + judgment notes).
 - `how-it-works.md` — weekly PC Express ordering cadence, staples nudge, recipes,
-  and the Instacart-in-Canada watch + check log.
+  meal planning, and the Instacart-in-Canada watch + check log.
+- `preferences.md` — the family food profile the weekly planner reads.
+- `recipes.md` — saved recipes (each with a `<!-- tags: … -->` nickname).
+- `meal-plans.md` — the weekly planner's history log (avoid recent repeats).
 - `staples.md` — recurring items to keep stocked.
