@@ -11,6 +11,7 @@ The shared page auto-refreshes within a minute or two.
 ### Meat, poultry & seafood
 
 ### Dairy & eggs
+- [ ] Butter
 
 ### Bakery
 
