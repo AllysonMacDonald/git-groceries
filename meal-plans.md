@@ -14,4 +14,10 @@ Format for each week:
 - Kid (12yo, stovetop): <title>
 ```
 
+## Week of 2026-08-03
+- Vegetarian: Mild Chana Masala (Chickpea Curry) [new], Mild Vegetable Pad Thai [new]
+- Meat & veg: Sheet-Pan Lemon-Herb Chicken & Vegetables, Moroccan-Spiced Sheet-Pan Salmon & Vegetables [new]
+- Kid (8yo, no-heat): Kid-Made Mediterranean Pita Pockets
+- Kid (12yo, stovetop): 12-Year-Old's Cheesy Black Bean Quesadillas
+
 <!-- Newest week first. No entries yet — the first Monday run adds one. -->

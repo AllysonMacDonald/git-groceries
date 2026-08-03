@@ -345,3 +345,117 @@ pasta water), spread on sandwiches, or dollop over chicken, fish, or roasted veg
 Keeps ~5 days in the fridge with a thin layer of oil on top, or freeze in an ice
 cube tray. No pine nuts? Walnuts or toasted sunflower seeds work. For a dairy-free
 version, leave out the parmesan and add extra salt plus a spoon of nutritional yeast.
+
+---
+
+## Mild Chana Masala (Chickpea Curry)
+*Weeknight vegetarian Indian curry. Serves 4. ~30 min. Mild.*
+<!-- tags: chana masala -->
+
+### Ingredients
+- [ ] olive oil, 2 tbsp
+- [ ] onion, 1, diced
+- [ ] garlic, 3 cloves
+- [ ] fresh ginger, 1 tbsp grated
+- [ ] ground cumin, 1 tsp
+- [ ] ground coriander, 1 tsp
+- [ ] ground turmeric, ½ tsp
+- [ ] garam masala, 1 tsp
+- [ ] canned diced tomatoes, 1 can (~14 oz)
+- [ ] chickpeas, 2 cans (~14 oz each)
+- [ ] lemon, ½
+- [ ] fresh cilantro, small handful, chopped
+- [ ] rice or naan, to serve
+- [ ] salt & pepper
+
+### Method
+1. **Soften:** Warm the olive oil in a pot over medium heat. Cook the diced onion
+   ~5 min until soft.
+2. **Bloom spices:** Add garlic, ginger, cumin, coriander, turmeric, and garam
+   masala; cook 1 min until fragrant.
+3. **Simmer:** Stir in the diced tomatoes and drained, rinsed chickpeas. Add a
+   splash of water, cover, and simmer ~15 min, mashing a few chickpeas against
+   the side of the pot to thicken.
+4. **Finish:** Season with salt and pepper, squeeze over the lemon, and stir in
+   the cilantro. Serve over rice or with naan.
+
+**Notes:** Lacto-ovo vegetarian. Genuinely mild as written — the warmth comes
+from garam masala, not chili. Add a pinch of cayenne to the adults' portions if
+they want more heat. Flavour improves the next day.
+
+---
+
+## Mild Vegetable Pad Thai
+*Weeknight Thai noodle stir-fry. Serves 4. ~30 min. Mild.*
+<!-- tags: pad thai -->
+
+### Ingredients
+- [ ] rice noodles (pad thai style), ~8 oz
+- [ ] eggs, 3
+- [ ] firm tofu, ~300 g, cubed
+- [ ] carrots, 1, julienned
+- [ ] red bell pepper, 1, sliced
+- [ ] bean sprouts, 2 cups
+- [ ] green onions, 4
+- [ ] garlic, 2 cloves
+- [ ] soy sauce, 3 tbsp (low-sodium)
+- [ ] tamarind paste (or rice vinegar), 2 tbsp
+- [ ] brown sugar, 2 tbsp
+- [ ] lime, 1
+- [ ] peanuts, ¼ cup, crushed
+- [ ] vegetable oil, 3 tbsp
+
+### Method
+1. **Noodles:** Soak the rice noodles in hot water per package directions until
+   just pliable; drain.
+2. **Sauce:** Whisk soy sauce, tamarind paste, and brown sugar together.
+3. **Tofu & egg:** In a hot pan or wok with 2 tbsp oil, fry the tofu until
+   golden; push aside. Add the eggs and scramble.
+4. **Veg & noodles:** Add remaining oil, garlic, carrot, and bell pepper;
+   stir-fry 2 min. Add the drained noodles and sauce, tossing until coated and
+   heated through.
+5. **Finish:** Fold in the bean sprouts and sliced green onions. Serve topped
+   with crushed peanuts and a lime wedge.
+
+**Notes:** Lacto-ovo vegetarian. Mild by design — no chili in the sauce; put
+chili flakes or sriracha on the table for the adults. Swap tofu for extra egg
+if preferred.
+
+---
+
+## Moroccan-Spiced Sheet-Pan Salmon & Vegetables
+*Hands-off meat-and-veg dinner. Serves 4. ~30 min. Mild.*
+<!-- tags: moroccan salmon -->
+
+### Ingredients
+- [ ] salmon fillets, 4 (~6 oz each)
+- [ ] zucchini, 2
+- [ ] red bell pepper, 1
+- [ ] red onion, 1
+- [ ] carrots, 3
+- [ ] olive oil, 3 tbsp
+- [ ] garlic, 2 cloves
+- [ ] ground cumin, 1 tsp
+- [ ] ground coriander, 1 tsp
+- [ ] sweet paprika, 1 tsp
+- [ ] ground cinnamon, ¼ tsp
+- [ ] honey, 1 tbsp
+- [ ] lemon, 1
+- [ ] fresh parsley, to finish
+- [ ] salt & pepper
+
+### Method
+1. **Head start:** Heat oven to 425°F. Toss chunked zucchini, bell pepper, red
+   onion, and carrots with 2 tbsp oil, salt, and pepper on a sheet pan; roast
+   10 min.
+2. **Spice the salmon:** Mix remaining oil, minced garlic, cumin, coriander,
+   paprika, cinnamon, honey, and the juice of half the lemon. Rub over the
+   salmon fillets.
+3. **Roast:** Push the vegetables aside to make room, add the salmon to the
+   pan, and roast 10–12 min more until the salmon flakes easily.
+4. **Finish:** Squeeze the remaining lemon half over everything and scatter
+   with chopped parsley.
+
+**Notes:** Mild warm-spice blend, no heat — a gentle introduction to Moroccan
+flavours for the kids. Swap salmon for a firm white fish if preferred; reduce
+the roasting time a few minutes for thinner fillets.
