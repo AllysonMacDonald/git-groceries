@@ -35,6 +35,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] eggs — pad thai
 - [ ] feta cheese — pita pockets
 - [ ] cheddar or Monterey Jack cheese — quesadillas
+- [ ] Feta
 
 ### Bakery
 - [ ] pita bread — pita pockets
