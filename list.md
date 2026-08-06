@@ -24,6 +24,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] baby spinach or lettuce — pita pockets
 - [ ] fresh parsley — moroccan salmon
 - [ ] baby potatoes — sheet-pan chicken
+- [ ] Onion
 
 ### Meat, poultry & seafood
 - [ ] chicken thighs — sheet-pan chicken
