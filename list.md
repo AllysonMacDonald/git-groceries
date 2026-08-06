@@ -64,6 +64,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] corn (canned or frozen) — quesadillas
 - [ ] hummus — pita pockets
 - [ ] 2 packs sesame seeds
+- [ ] Olives
 
 ### Frozen foods
 
