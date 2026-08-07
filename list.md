@@ -66,6 +66,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] hummus — pita pockets
 - [ ] 2 packs sesame seeds
 - [ ] Olives
+- [ ] Maple syrup
 
 ### Frozen foods
 
