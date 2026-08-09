@@ -35,10 +35,13 @@ it from `### Uncategorized items`, then commit and push. Treat it exactly like
 an "add X to the list" request. Leave the `### Uncategorized items` heading and
 its comment in place — just empty.
 
-## Weekly meal planner (Mondays 9am Atlantic — auto)
+## Weekly meal planner (on command)
 
-A scheduled cloud agent runs this every Monday. Any Claude can run it too if
-asked ("plan this week's meals"). Steps:
+Run this **only when asked** ("plan this week's meals"). The cloud routine that
+used to run it automatically every Monday 9am Atlantic is now **disabled** — it
+no longer fires on a schedule. It can still be triggered on demand (run the
+routine from https://claude.ai/code/routines, or just ask any Claude in this
+repo to plan the week). Steps:
 
 1. **Read** `preferences.md` (the family taste profile), `recipes.md` (the
    collection), `meal-plans.md` (recent weeks — to avoid repeats), and `list.md`.
