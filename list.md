@@ -36,7 +36,6 @@ The shared page auto-refreshes within a minute or two.
 - [ ] feta cheese — pita pockets
 - [ ] cheddar or Monterey Jack cheese — quesadillas
 - [ ] Feta
-- [ ] sunflower seed butter
 - [ ] havarti
 - [ ] mozzarella
 
@@ -51,6 +50,7 @@ The shared page auto-refreshes within a minute or two.
 
 ### Pantry staples
 - [ ] yellow mustard
+- [ ] sunflower seed butter
 - [ ] olive oil — chana masala, sheet-pan chicken, moroccan salmon
 - [ ] ground cumin — chana masala, moroccan salmon, quesadillas
 - [ ] ground coriander — chana masala, moroccan salmon
