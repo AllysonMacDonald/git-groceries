@@ -20,6 +20,28 @@ Do this, no confirmation needed:
 "add <Recipe> to the list" → drop that recipe's whole ingredient list from
 `recipes.md` onto `## To buy`, each ingredient filed to its category, deduped.
 
+## When Allyson says "clear the previous list and create a new list"
+
+(Also: "start a fresh list", "clear the list and start over", "new week's list".)
+Do this, no confirmation needed:
+
+1. **Archive** — move every item currently under `## To buy` (all categories) to
+   `## Ordered / done`, each marked with today's date, e.g.
+   `- [x] onion — chana masala — ordered 2026-08-13`. Leave the `## To buy`
+   category headings in place but empty. Leave `### Uncategorized items`' heading
+   and comment as-is.
+2. **Auto-add the rotation staples** — run `rotation.md` (see "How to run it" in
+   that file): for each category, take the next batch from its cursor, file it to
+   the aisle shown under `## To buy` deduped, then advance that category's
+   **Next up** cursor. This is the full-cycle rotation so we don't repeat breads,
+   cheeses, etc. week to week.
+3. **Commit and push** `list.md` **and** `rotation.md` together.
+4. **Confirm in one line** — how many items archived, and the rotation batch added
+   (e.g. "Archived 24, added this week's rotation: havarti + mozzarella, Cheerios
+   + Raisin Bran, …").
+
+The new list is now just the rotation staples; add recipes/items on top as usual.
+
 ## The `### Uncategorized items` bucket (items added from a phone)
 
 The live page has an "Add item" box. When a partner adds something from their
@@ -90,3 +112,5 @@ takes ~1–2 min to rebuild. State facts only after checking.
 - `recipes.md` — saved recipes (each with a `<!-- tags: … -->` nickname).
 - `meal-plans.md` — the weekly planner's history log (avoid recent repeats).
 - `staples.md` — recurring items to keep stocked.
+- `rotation.md` — the rotating cheese/cereal/cracker/bread/chocolate/juice staples
+  auto-added when starting a new list (holds each category's cursor).
