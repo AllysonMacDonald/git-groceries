@@ -36,6 +36,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] feta cheese — pita pockets
 - [ ] cheddar or Monterey Jack cheese — quesadillas
 - [ ] Feta
+- [ ] sunflower seed butter
 
 ### Bakery
 - [ ] pita bread — pita pockets
