@@ -200,8 +200,14 @@
 
 <script>
 (function () {
-  var SOURCE = "list.md";
-  var RECIPE_SOURCE = "recipes.md";
+  // Read list.md/recipes.md straight from GitHub Pages (always current) instead
+  // of this site's own deployed copy. That way the page never freezes if Netlify
+  // stops auto-redeploying — a phone add (which commits to GitHub) shows up within
+  // a minute regardless of Netlify's deploy state. The "Add item" box still POSTs
+  // to the Netlify function below, so this page must stay hosted on Netlify.
+  var GH_BASE = "https://allysonmacdonald.github.io/git-groceries/";
+  var SOURCE = GH_BASE + "list.md";
+  var RECIPE_SOURCE = GH_BASE + "recipes.md";
   var POLL_MS = 20000;
   var STORE = "gg.checked.v1";
   var RSTORE = "gg.recipeChecked.v1";
