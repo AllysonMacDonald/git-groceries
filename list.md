@@ -37,10 +37,17 @@ The shared page auto-refreshes within a minute or two.
 - [ ] cheddar or Monterey Jack cheese — quesadillas
 - [ ] Feta
 - [ ] sunflower seed butter
+- [ ] havarti
+- [ ] mozzarella
 
 ### Bakery
 - [ ] pita bread — pita pockets
 - [ ] flour tortillas — quesadillas
+- [ ] bagels
+- [ ] crumpets
+- [ ] Country Harvest 14 Grain bread
+- [ ] Ace Classic White Bistro
+- [ ] Baguette
 
 ### Pantry staples
 - [ ] yellow mustard
@@ -68,12 +75,23 @@ The shared page auto-refreshes within a minute or two.
 - [ ] 2 packs sesame seeds
 - [ ] Olives
 - [ ] Maple syrup
+- [ ] Cheerios
+- [ ] Raisin Bran
+- [ ] chocolate chips
 
 ### Frozen foods
+- [ ] Drumstick bites
 
 ### Snacks
+- [ ] Ryvita
+- [ ] Triscuit
+- [ ] Dairy Milk
+- [ ] Celebration butter cookies (milk chocolate)
+- [ ] Lindt Swiss chocolate
 
 ### Beverages
+- [ ] Bubbly carbonated water
+- [ ] Fruit punch
 
 ### Cleaning products
 

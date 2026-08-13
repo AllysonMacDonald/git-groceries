@@ -31,10 +31,11 @@ Do this, no confirmation needed:
    category headings in place but empty. Leave `### Uncategorized items`' heading
    and comment as-is.
 2. **Auto-add the rotation staples** — run `rotation.md` (see "How to run it" in
-   that file): for each category, take the next batch from its cursor, file it to
-   the aisle shown under `## To buy` deduped, then advance that category's
-   **Next up** cursor. This is the full-cycle rotation so we don't repeat breads,
-   cheeses, etc. week to week.
+   that file): for each category, randomly pick its batch from options not in the
+   **Recently used** cooldown, file each to the aisle shown under `## To buy`
+   deduped, then update that category's **Recently used** line. Random selection
+   with a cooldown means variety with no week-over-week repeats of breads,
+   cheeses, etc.
 3. **Commit and push** `list.md` **and** `rotation.md` together.
 4. **Confirm in one line** — how many items archived, and the rotation batch added
    (e.g. "Archived 24, added this week's rotation: havarti + mozzarella, Cheerios
@@ -113,4 +114,4 @@ takes ~1–2 min to rebuild. State facts only after checking.
 - `meal-plans.md` — the weekly planner's history log (avoid recent repeats).
 - `staples.md` — recurring items to keep stocked.
 - `rotation.md` — the rotating cheese/cereal/cracker/bread/chocolate/juice staples
-  auto-added when starting a new list (holds each category's cursor).
+  auto-added when starting a new list (random pick with a per-category cooldown).

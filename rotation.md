@@ -1,127 +1,131 @@
-<!-- This file is state, not just docs: Claude edits the "Next up" cursors each
-     time it starts a new list, and commits the change. Do not hand-reorder the
-     option lists (it would desync the cursors) — append new options at the end. -->
+<!-- This file is state, not just docs: Claude edits each category's "Recently
+     used" line every time it starts a new list, and commits the change. Append
+     new options to the end of a list freely; order doesn't matter (selection is
+     random). -->
 
 # Rotation staples
 
 Every time Allyson **clears the previous list and starts a new list**, these
 category batches are auto-added to `## To buy` in `list.md` (no confirmation
-needed). We rotate so we don't eat the same bread/cheese/etc. every week.
+needed). Selection is **random with a cooldown** so we don't eat the same
+bread/cheese/etc. week to week, but it's not a fixed sequence either.
 
 ## How to run it (for Claude)
 
-When starting a new list, **after** archiving the old `## To buy` items to
-`## Ordered / done`, do this for each category below:
+When starting a new list, **after** archiving the old `## To buy` items, do this
+for each category below:
 
-1. Read its **Next up** number `N` and its **per-list count** `C`.
-2. Take `C` items starting at position `N`, **wrapping** past the end back to #1
-   (e.g. count 3 on an 8-item list at position 7 → items 7, 8, 1).
-3. File each onto `## To buy` under the **aisle** shown, deduped against the whole
-   list. Add them as plain `- [ ] item` lines (no ` — note` tag).
-4. Set **Next up** to `((N − 1 + C) mod list-length) + 1` — i.e. the item right
-   after the last one you took — so next week continues the cycle.
+1. Build a candidate pool = all its options **minus** every item in its
+   **Recently used** line (that line already holds exactly the cooldown window,
+   so exclude the whole line).
+2. **Randomly pick** the category's per-list count from that pool. (If the pool
+   somehow has fewer than the count, top up with the oldest recently-used items.)
+3. File each pick onto `## To buy` under the **aisle** shown, deduped against the
+   whole list. Add them as plain `- [ ] item` lines (no ` — note` tag).
+4. **Update Recently used**: put this week's picks at the front (newest first),
+   then trim the line back to its **cooldown** length (drop the oldest overflow).
 5. Commit `rotation.md` together with `list.md`.
 
-This walks each list top-to-bottom, `C` at a time, before any repeat — a true
-rotation, not random. To add a new option, append it to the **end** of a list
-(don't renumber) so the cursor stays valid.
+The cooldown is always ≥ the per-list count, so nothing repeats week-over-week;
+it's wide enough to keep several recent weeks from coming back, yet leaves a
+healthy pool to pick randomly from.
 
 ---
 
-## Cheese — 2 per list → Dairy & eggs
-1. havarti
-2. mozzarella
-3. old cheddar
-4. brie
-5. feta
-6. goat
-7. gouda
+## Cheese — pick 2 per list · cooldown 4 → Dairy & eggs
+- havarti
+- mozzarella
+- old cheddar
+- brie
+- feta
+- goat
+- gouda
 
-**Next up: 1** (havarti)
+**Recently used (newest first): havarti, mozzarella**
 
-## Cereal — 2 per list → Pantry staples
-1. Cheerios
-2. Raisin Bran
-3. Cornflakes
-4. Mini Wheats
-5. Shreddies
-6. Shredded Wheat
-7. Weetabix
-8. All Bran
+## Cereal — pick 2 per list · cooldown 4 → Pantry staples
+- Cheerios
+- Raisin Bran
+- Cornflakes
+- Mini Wheats
+- Shreddies
+- Shredded Wheat
+- Weetabix
+- All Bran
 
-**Next up: 1** (Cheerios)
+**Recently used (newest first): Cheerios, Raisin Bran**
 
-## Crackers — 2 per list → Snacks
-1. Ryvita
-2. Triscuit
-3. Cranberry and Fennel Artisan Crisps
-4. Vinta Original
-5. rice crackers
-6. Aurora Bread Sticks Olive Oil
-7. Boulangerie Grissol Baguettes Olive Oil & Sea Salt
-8. soda crackers
-9. PC Black Pepper & Sea Salt Crackers
-10. Kellogg's Flatbread Sea Salt & Olive Oil
-11. Kellogg's Pita Everything Bagel
+## Crackers — pick 2 per list · cooldown 6 → Snacks
+- Ryvita
+- Triscuit
+- Cranberry and Fennel Artisan Crisps
+- Vinta Original
+- rice crackers
+- Aurora Bread Sticks Olive Oil
+- Boulangerie Grissol Baguettes Olive Oil & Sea Salt
+- soda crackers
+- PC Black Pepper & Sea Salt Crackers
+- Kellogg's Flatbread Sea Salt & Olive Oil
+- Kellogg's Pita Everything Bagel
 
-**Next up: 1** (Ryvita)
+**Recently used (newest first): Ryvita, Triscuit**
 
-## Breakfast breads — 2 per list → Bakery
-1. bagels
-2. crumpets
-3. english muffins
-4. raisin bread
+## Breakfast breads — pick 2 per list · cooldown 2 → Bakery
+- bagels
+- crumpets
+- english muffins
+- raisin bread
 
-**Next up: 1** (bagels)
+**Recently used (newest first): bagels, crumpets**
 
-## Breads — 3 per list → Bakery
-1. Country Harvest 14 Grain Bread
-2. Ace Classic White Bistro
-3. Baguette
-4. Granary loaf sliced
-5. 12 grain bread sliced
-6. bakery Italian bread
-7. bakery Italian bread multi-grain sliced
-8. oat and honey whole wheat bread
+## Breads — pick 3 per list · cooldown 4 → Bakery
+- Country Harvest 14 Grain bread
+- Ace Classic White Bistro
+- Baguette
+- Granary loaf sliced
+- 12 grain bread sliced
+- bakery Italian bread
+- bakery Italian bread multi-grain sliced
+- oat and honey whole wheat bread
 
-**Next up: 1** (Country Harvest 14 Grain Bread)
+**Recently used (newest first): Country Harvest 14 Grain bread, Ace Classic White Bistro, Baguette**
 
-## Chocolate — 5 per list → Snacks (see aisle notes)
+## Chocolate — pick 5 per list · cooldown 10 → Snacks (see aisle notes)
 Most go to **Snacks**. Exceptions: **Ice Cream** and **Drumstick bites** →
 Frozen foods; **chocolate chips** → Pantry staples (baking).
-1. Dairy Milk
-2. Drumstick bites
-3. chocolate chips
-4. Celebration butter cookies milk chocolate
-5. Lindt Swiss Chocolate
-6. Lindt dark Chocolate
-7. M&Ms
-8. chocolate covered pretzels
-9. Aero bar
-10. Cadbury 45 Candy
-11. Mini Eggs
-12. Puff cookies
-13. Oreos
-14. PC Chocolate chip cookies
-15. Fudgee-Os
-16. No Name Chocolatey Chip Cookies
-17. Ginger Snaps
-18. Biscoff Cookies
-19. Dare Ultimate Lemon Cream Cookies
-20. Ice Cream
-21. PC Mint Slamscuits
-22. No Name Fudge-striped shortbread cookies
-23. Wagon Wheels
+- Dairy Milk
+- Drumstick bites
+- chocolate chips
+- Celebration butter cookies (milk chocolate)
+- Lindt Swiss chocolate
+- Lindt dark chocolate
+- M&Ms
+- chocolate covered pretzels
+- Aero bar
+- Cadbury 45 Candy
+- Mini Eggs
+- Puff cookies
+- Oreos
+- PC Chocolate chip cookies
+- Fudgee-Os
+- No Name Chocolatey Chip Cookies
+- Ginger Snaps
+- Biscoff Cookies
+- Dare Ultimate Lemon Cream Cookies
+- Ice Cream
+- PC Mint Slamscuits
+- No Name Fudge-striped shortbread cookies
+- Wagon Wheels
 
-**Next up: 1** (Dairy Milk)
+**Recently used (newest first): Dairy Milk, Drumstick bites, chocolate chips, Celebration butter cookies (milk chocolate), Lindt Swiss chocolate**
 
-## Juice — 2 per list → Beverages
-1. Bubbly carbonated water
-2. Fruit punch
-3. Lemonade
-4. Iced tea
-5. Apple juice
-6. orange juice
-7. Grape juice
+## Juice — pick 2 per list · cooldown 4 → Beverages
+- Bubbly carbonated water
+- Fruit punch
+- Lemonade
+- Iced tea
+- Apple juice
+- orange juice
+- Grape juice
 
-**Next up: 1** (Bubbly carbonated water)
+**Recently used (newest first): Bubbly carbonated water, Fruit punch**
