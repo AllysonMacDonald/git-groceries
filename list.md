@@ -28,7 +28,6 @@ The shared page auto-refreshes within a minute or two.
 ### Meat, poultry & seafood
 - [ ] chicken thighs — sheet-pan chicken
 - [ ] salmon fillets — moroccan salmon
-- [ ] Liver
 
 ### Dairy & eggs
 - [ ] Butter
