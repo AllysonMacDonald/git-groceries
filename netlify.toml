@@ -5,6 +5,13 @@
 [build]
   publish = "."
   functions = "netlify/functions"
+  # Skip the deploy unless site code actually changed. The live page reads
+  # list.md/recipes.md straight from GitHub Pages, so grocery-data commits
+  # (phone adds, Claude pushes, rotation, meal plans) never need a Netlify
+  # rebuild — this cancels those builds so they don't burn deploy credits.
+  # Only index.html / the function / this config trigger a real deploy.
+  # `git diff --quiet` exits 0 (cancel) when those paths are unchanged.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- index.html netlify.toml netlify/functions"
 
 # Nice short path: POST /api/add-item -> the function.
 [[redirects]]
