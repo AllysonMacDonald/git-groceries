@@ -100,6 +100,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] recycling bags
 
 ### Personal care
+- [ ] Clarifying shampoo
 
 ### Specialty or dietary items
 - [ ] firm tofu — pad thai
