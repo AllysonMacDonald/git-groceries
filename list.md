@@ -46,6 +46,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] Country Harvest 14 Grain bread
 - [ ] Ace Classic White Bistro
 - [ ] Baguette
+- [ ] whole wheat bagels
 
 ### Pantry staples
 - [ ] yellow mustard
