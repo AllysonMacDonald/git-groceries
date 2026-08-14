@@ -24,7 +24,6 @@ The shared page auto-refreshes within a minute or two.
 - [ ] baby spinach or lettuce — pita pockets
 - [ ] fresh parsley — moroccan salmon
 - [ ] baby potatoes — sheet-pan chicken
-- [ ] Onion
 
 ### Meat, poultry & seafood
 - [ ] chicken thighs — sheet-pan chicken
@@ -35,7 +34,6 @@ The shared page auto-refreshes within a minute or two.
 - [ ] eggs — pad thai
 - [ ] feta cheese — pita pockets
 - [ ] cheddar or Monterey Jack cheese — quesadillas
-- [ ] Feta
 - [ ] havarti
 - [ ] mozzarella
 
