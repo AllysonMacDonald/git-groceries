@@ -101,6 +101,7 @@ The shared page auto-refreshes within a minute or two.
 ### Personal care
 - [ ] Clarifying shampoo
 - [ ] Band aids
+- [ ] Hair conditioner
 
 ### Specialty or dietary items
 - [ ] firm tofu — pad thai
