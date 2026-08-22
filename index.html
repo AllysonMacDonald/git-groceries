@@ -669,7 +669,7 @@
     if (!item) return;
     addBtn.disabled = true;
     showMsg("Adding…", "");
-    fetch("/api/add-item", {
+    fetch("https://git-groceries-netlify.netlify.app/api/add-item", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ item: item }),

@@ -24,9 +24,11 @@ const HEADERS = {
   "X-GitHub-Api-Version": "2022-11-28",
 };
 
+const CORS = { "Access-Control-Allow-Origin": "https://allysonmacdonald.github.io", "Access-Control-Allow-Methods": "POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, x-add-secret" };
+
 const json = (status, body) => ({
   statusCode: status,
-  headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+  headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...CORS },
   body: JSON.stringify(body),
 });
 
@@ -231,6 +233,7 @@ function addItem(md, item, category) {
 }
 
 exports.handler = async (event) => {
+  if (event.httpMethod === "OPTIONS") return { statusCode: 204, headers: CORS, body: "" };
   if (event.httpMethod !== "POST") return json(405, { error: "Use POST." });
   if (!process.env.GITHUB_TOKEN) return json(500, { error: "Server not configured (no token)." });
 
