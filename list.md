@@ -100,6 +100,7 @@ The shared page auto-refreshes within a minute or two.
 
 ### Personal care
 - [ ] Clarifying shampoo
+- [ ] Band aids
 
 ### Specialty or dietary items
 - [ ] firm tofu — pad thai
@@ -108,8 +109,6 @@ The shared page auto-refreshes within a minute or two.
 
 <!-- Phone-added items the classifier couldn't place land here. Claude re-files
 them into a real category on the next interaction. -->
-- [ ] Band aids
-- [ ] __cors_test_probe__
 
 ## Ordered / done
 
