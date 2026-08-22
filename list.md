@@ -77,6 +77,7 @@ The shared page auto-refreshes within a minute or two.
 - [ ] Cheerios
 - [ ] Raisin Bran
 - [ ] chocolate chips
+- [ ] Mayonnaise
 
 ### Frozen foods
 - [ ] Drumstick bites
